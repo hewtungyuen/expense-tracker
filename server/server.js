@@ -11,7 +11,10 @@ app.use(cors())
 
 // routes
 const expensesRoute = require("./routes/expenseRoute")
+const userRoute = require("./routes/userRoute")
+
 app.use("/expenses", expensesRoute)
+app.use("/users", userRoute)
 
 // starting the app
 mongoose.connect(

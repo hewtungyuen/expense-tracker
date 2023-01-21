@@ -1,4 +1,3 @@
-const nodemon = require("nodemon")
 const Expense = require("../models/expenseModel")
 
 const addExpense = (req, res) => {
