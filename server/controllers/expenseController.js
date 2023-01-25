@@ -41,7 +41,7 @@ const getCurrentMonthTotalInSgd = (req, res) => {
             $lt: end
         }
     }).then(monthTotal => {
-        const output = monthTotal.reduce((acc, curr) => acc + curr.amountInSgd, 0)
+        const output = monthTotal.reduce((acc, curr) => acc + curr.expenseAmountSgd, 0)
         res.json(output)
     })
 }

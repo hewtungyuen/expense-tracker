@@ -10,19 +10,19 @@ const expenseSchema = new Schema ({
         type: Date,
         default: Date.now
     }, 
-    amountInSgd : {
+    expenseAmountSgd : {
         type: Number,
         required: true
     }, 
-    description : {
+    expenseDescription : {
         type: String,
         required: true
     }, 
-    category : {
+    expenseCategory : {
         type: String,
         required: true
     }, 
-    amountInOverseasCurrency : {
+    expenseAmountOverseas : {
         type: Number,
     }, 
     country : {
