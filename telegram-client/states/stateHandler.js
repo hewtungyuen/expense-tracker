@@ -10,6 +10,7 @@ const {
     deletePreviousExpense
 } = require('../features/deleteExpense')
 const { displayMonthTotal } = require("../features/start")
+const numberValidationDecorator = require("../utils/inputValidation")
 
 const textHandler = async (ctx) => {
     const telegramId = ctx.message.chat.username
@@ -18,8 +19,12 @@ const textHandler = async (ctx) => {
     const userInput = ctx.message.text
     
     switch (currentState.data) {
+        case state.START:
+            displayMonthTotal(ctx)
+            break
         case state.ENTER_AMOUNT_SGD: 
-            enterAmountSgd(ctx)
+            const decorator = numberValidationDecorator(enterAmountSgd)
+            decorator(ctx)
             break
         case state.ENTER_DESCRIPTION: 
             enterDescription(ctx)

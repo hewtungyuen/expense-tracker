@@ -12,10 +12,12 @@ const confirmation = async (ctx) => {
 }
 
 const deletePreviousExpense = async (ctx) => {
-    let latestExpenseId = await api.get(`/expenses/latest`)
-    latestExpenseId = latestExpenseId.data._id
+    const latestExpense = await api.get(`/expenses/latest`)
+    const latestExpenseId = latestExpense.data._id
+    const latestExpenseDescription = latestExpense.data.expenseDescription
+
     await api.delete(`/expenses/${latestExpenseId}`)
-    ctx.reply('successfully deleted.')
+    ctx.reply(`successfully deleted expense: ${latestExpenseDescription}`)
     displayMonthTotal(ctx)
 }
 
