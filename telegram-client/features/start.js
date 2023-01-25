@@ -4,7 +4,6 @@ const { Markup } = require('telegraf')
 
 const initialiseBot = async (ctx) => {
     const telegramId = ctx.message.chat.username
-    await api.patch(`/users/${telegramId}`, {currentState: state.START})
     await api.post(`users/${telegramId}`)
     await ctx.reply('Bot initialised')
     displayMonthTotal(ctx)
@@ -14,7 +13,8 @@ const displayMonthTotal = async (ctx) => {
     const date = new Date()
     const month = date.toLocaleString('default', { month: 'long' });
     const monthTotal = await api.get('/expenses')
-    console.log(monthTotal.data)
+    const telegramId = ctx.message.chat.username
+    await api.patch(`/users/${telegramId}`, {currentState: state.START})
     ctx.reply(`Total expenses for ${month}: $${monthTotal.data}` , Markup.keyboard([
         ['add expense'],
         ['delete expense'],

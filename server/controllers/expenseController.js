@@ -19,9 +19,9 @@ const getLatestExpenseId = (req, res) => {
     Expense.find({}).sort({
         date: -1
     }).limit(1).then(latestExpense => (
-        res.json({
-            latestExpense
-        })
+        res.json(
+            latestExpense[0]
+        )
     ))
 }
 
