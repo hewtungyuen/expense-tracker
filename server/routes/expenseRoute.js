@@ -10,6 +10,6 @@ const {
 router.post("/", addExpense)
 router.delete("/:id", deleteExpenseById)
 router.get("/latest", getLatestExpenseId)
-router.get("/", getCurrentMonthTotalInSgd)
+router.get("/:id", getCurrentMonthTotalInSgd)
 
 module.exports = router

@@ -12,8 +12,8 @@ const initialiseBot = async (ctx) => {
 const displayMonthTotal = async (ctx) => {
     const date = new Date()
     const month = date.toLocaleString('default', { month: 'long' });
-    const monthTotal = await api.get('/expenses')
     const telegramId = ctx.message.chat.username
+    const monthTotal = await api.get(`/expenses/${telegramId}`)
     await api.patch(`/users/${telegramId}`, {currentState: state.START})
     ctx.reply(`Total expenses for ${month}: $${monthTotal.data}` , Markup.keyboard([
         ['add expense'],

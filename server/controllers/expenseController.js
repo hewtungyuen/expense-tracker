@@ -35,11 +35,13 @@ const getCurrentMonthTotalInSgd = (req, res) => {
     end.setDate(0);
     end.setHours(23,59,59,999);
 
+    const id = req.params.id
     Expense.find({
         date: {
             $gte: start,
             $lt: end
-        }
+        }, 
+        telegramId: id
     }).then(monthTotal => {
         const output = monthTotal.reduce((acc, curr) => acc + curr.expenseAmountSgd, 0)
         res.json(output)
