@@ -29,6 +29,10 @@ const userSchema = new Schema ({
     overseasMode : {
         type: Boolean,
         default: "false"
+    },
+    tripName: {
+        type: String,
+        default: "none"
     }
 })
 
