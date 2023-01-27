@@ -1,5 +1,6 @@
 const state = require("./stateEnum")
 const api = require('../axiosConfig')
+
 const {
     enterAmountSgd,
     enterDescription,
@@ -9,6 +10,14 @@ const {
 const {
     deletePreviousExpense
 } = require('../features/deleteExpense')
+
+const {
+    setTripName,
+    displayTripTotal,
+    setExchangeRate,
+    viewExchangedCurrency
+} = require('../features/overseasMode')
+
 const { displayMonthTotal } = require("../features/start")
 const numberValidationDecorator = require("../utils/inputValidation")
 
@@ -20,6 +29,7 @@ const textHandler = async (ctx) => {
     
     switch (currentState.data) {
         case state.START:
+            // if else for local and Overseas mode
             displayMonthTotal(ctx)
             break
         case state.ENTER_AMOUNT_SGD: 
@@ -38,6 +48,15 @@ const textHandler = async (ctx) => {
             } else {
                 displayMonthTotal(ctx)
             }
+            break
+        case state.ENTER_TRIP_NAME:
+            setTripName(ctx)
+            break
+        case state.ENTER_EXCHANGE_RATE:
+            setExchangeRate(ctx)
+            break
+        case state.ENTER_AMOUNT_OVERSEAS:
+            viewExchangedCurrency(ctx)
             break
     }
 }

@@ -16,21 +16,29 @@ const displayMonthTotal = async (ctx) => {
     const monthTotal = await api.get(`/expenses/${telegramId}`)
     await api.patch(`/users/${telegramId}`, {currentState: state.START})
     ctx.reply(`Total expenses for ${month}: $${monthTotal.data}` , Markup.keyboard([
-        ['add expense'],
-        ['delete expense'],
+        ['Add expense', 'Delete expense'],
+        ['Overseas mode']
         ]).oneTime().resize()
     )
 }
 
 const switchToOverseasMode = async (ctx) => {
+    const telegramId = ctx.message.chat.username
     await api.patch(`/users/${telegramId}`, {overseasMode: true})
+    await api.patch(`/users/${telegramId}`, {currentState: state.ENTER_TRIP_NAME})
+    ctx.reply('Switched to overseas mode. Enter trip name:')
 }
 
 const switchToLocalMode = async (ctx) => {
+    const telegramId = ctx.message.chat.username
     await api.patch(`/users/${telegramId}`, {overseasMode: false})
+    ctx.reply('Switched to local mode')
+    displayMonthTotal(ctx)
 }
 
 module.exports = {
     initialiseBot,
-    displayMonthTotal
+    displayMonthTotal,
+    switchToLocalMode,
+    switchToOverseasMode
 }

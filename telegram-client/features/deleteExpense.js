@@ -4,7 +4,8 @@ const state = require('../states/stateEnum')
 const { displayMonthTotal } = require("./start")
 
 const confirmation = async (ctx) => {
-    ctx.reply("are you sure?",Markup.keyboard([['yes'],['no'],
+    ctx.reply("Are you sure?",Markup.keyboard([
+        ['yes'],['no']
     ]).oneTime().resize())
 
     const telegramId = ctx.message.chat.username
@@ -17,7 +18,7 @@ const deletePreviousExpense = async (ctx) => {
     const latestExpenseDescription = latestExpense.data.expenseDescription
 
     await api.delete(`/expenses/${latestExpenseId}`)
-    ctx.reply(`successfully deleted expense: ${latestExpenseDescription}`)
+    ctx.reply(`Successfully deleted expense: ${latestExpenseDescription}`)
     displayMonthTotal(ctx)
 }
 

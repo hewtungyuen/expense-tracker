@@ -23,8 +23,9 @@ const enterDescription = async (ctx) => {
     await api.patch(`/users/${telegramId}`, {expenseDescription: description})
     await api.patch(`/users/${telegramId}`, {currentState: state.ENTER_CATEGORY})
     ctx.reply("Choose category: ", Markup.keyboard([
-        ['food'], ['sports'],
-        ['shopping'], ['entertainment'],
+        ['Food','Sports'],
+        ['Shopping','Entertainment'],
+        ['Transport', 'Others'], 
         ]).oneTime().resize())
 }
 
