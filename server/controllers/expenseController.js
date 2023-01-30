@@ -1,4 +1,5 @@
 const Expense = require("../models/expenseModel")
+const User = require("../models/userModel")
 
 const addExpense = (req, res) => {
     Expense.create(req.body).then(
@@ -48,9 +49,31 @@ const getCurrentMonthTotalInSgd = (req, res) => {
     })
 }
 
+const getCurrentTripTotal = async (req, res) => {
+    const user = await User.findById(req.params.id)
+    const tripName = user.tripName
+
+    const tripExpenses = await Expense.find({
+        tripName: tripName
+    })
+
+    const amountInSgd = tripExpenses.reduce((acc, curr) => acc + curr.expenseAmountSgd, 0)
+    const amountConvertedToSgd = tripExpenses.reduce((acc, curr) => acc + curr.expenseAmountOverseas / curr.exchangeRate, 0)
+    const amountInOverseasCurrency = tripExpenses.reduce((acc, curr) => acc + curr.expenseAmountOverseas, 0)
+
+    const total = amountInSgd + amountConvertedToSgd
+    
+    res.json({
+        sgd: amountInSgd,
+        overseasCurrency: amountInOverseasCurrency,
+        total: total
+    })
+}
+
 module.exports = {
     addExpense,
     deleteExpenseById,
     getLatestExpenseId,
-    getCurrentMonthTotalInSgd
+    getCurrentMonthTotalInSgd,
+    getCurrentTripTotal
 }

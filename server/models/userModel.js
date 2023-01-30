@@ -10,7 +10,11 @@ const userSchema = new Schema ({
         type: Number,
         default: 1
     },
-    expenseAmount : {
+    expenseAmountSgd : {
+        type: Number,
+        default: 1
+    },
+    expenseAmountOverseas : {
         type: Number,
         default: 1
     },

@@ -25,9 +25,12 @@ const expenseSchema = new Schema ({
     expenseAmountOverseas : {
         type: Number,
     }, 
-    country : {
+    tripName : {
         type: String,
     }, 
+    exchangeRate : {
+        type: Number
+    }
 })
 
 module.exports = mongoose.model('expenses', expenseSchema);
