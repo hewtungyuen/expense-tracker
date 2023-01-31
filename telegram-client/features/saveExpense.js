@@ -24,7 +24,7 @@ const saveExpenseToDatabase = async (ctx) => {
         displayTripTotal(ctx)
     } else {
         const expenseAmountSgd = await api.get(`/users/${telegramId}/expenseAmountSgd`).then(value => value.data)
-        saveExpenseInSgd(telegramId, expenseAmountSgd, description, category)
+        await saveExpenseInSgd(telegramId, expenseAmountSgd, description, category)
         displayMonthTotal(ctx)
     }
 

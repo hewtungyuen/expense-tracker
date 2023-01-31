@@ -40,8 +40,8 @@ const textHandler = async (ctx) => {
         case state.ADD_EXPENSE_OVERSEAS:
             addNewExpenseOverseasMode(ctx)
             break
-        case state.ENTER_AMOUNT_SGD, state.ENTER_AMOUNT_OVERSEAS: 
-            console.log('HERE') // TODO: this is not logging out 
+        case state.ENTER_AMOUNT_OVERSEAS:
+        case state.ENTER_AMOUNT_SGD: 
             const decorator = numberValidationDecorator(enterAmount)
             decorator(ctx)
             break

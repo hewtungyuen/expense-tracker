@@ -20,8 +20,11 @@ const displayTripTotal = async (ctx) => {
     const tripName = await api.get(`/users/${telegramId}/tripName`)
     const tripTotal = await api.get(`/expenses/tripTotal/${telegramId}`).then(value => value.data)
 
-    ctx.reply(`Total expenses for ${tripName.data}: $${tripTotal.sgd} SGD, $${tripTotal.overseasCurrency} overseas currency, $${tripTotal.tripTotal} SGD total`, 
-        Markup.keyboard([
+    ctx.reply(
+        `Total expenses for ${tripName.data}: 
+        SGD: $${tripTotal.sgd}, 
+        Overseas currency: $${tripTotal.overseasCurrency},
+        Total: $${parseFloat(tripTotal.total).toFixed(2)} SGD`, Markup.keyboard([
         ['Add expense', 'Delete expense'],
         ['Set exchange rate', 'Change currency'],
         ['Local mode'],

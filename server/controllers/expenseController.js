@@ -26,7 +26,7 @@ const getLatestExpenseId = (req, res) => {
     ))
 }
 
-const getCurrentMonthTotalInSgd = (req, res) => {
+const getCurrentMonthTotalInSgd = async (req, res) => {
     const start = new Date();
     start.setDate(1);
     start.setHours(0,0,0,0);
@@ -37,16 +37,22 @@ const getCurrentMonthTotalInSgd = (req, res) => {
     end.setHours(23,59,59,999);
 
     const id = req.params.id
-    Expense.find({
+    const monthExpenses = await Expense.find({
         date: {
             $gte: start,
             $lt: end
         }, 
         telegramId: id
-    }).then(monthTotal => {
-        const output = monthTotal.reduce((acc, curr) => acc + curr.expenseAmountSgd, 0)
-        res.json(output)
     })
+
+    var total = 0
+    monthExpenses.forEach((item, index) => {
+        if (!item.tripName) {
+            total += item.expenseAmountSgd
+        }
+    })
+
+    res.json(total)
 }
 
 const getCurrentTripTotal = async (req, res) => {
@@ -57,11 +63,26 @@ const getCurrentTripTotal = async (req, res) => {
         tripName: tripName
     })
 
-    const amountInSgd = tripExpenses.reduce((acc, curr) => acc + curr.expenseAmountSgd, 0)
-    const amountConvertedToSgd = tripExpenses.reduce((acc, curr) => acc + curr.expenseAmountOverseas / curr.exchangeRate, 0)
-    const amountInOverseasCurrency = tripExpenses.reduce((acc, curr) => acc + curr.expenseAmountOverseas, 0)
+    var amountInSgd = 0
+    var amountInOverseasCurrency = 0
+    var total = 0
 
-    const total = amountInSgd + amountConvertedToSgd
+    tripExpenses.forEach((item, index) => {
+        
+        if (item.expenseAmountOverseas) {
+            const value = item.expenseAmountOverseas
+            const exchangeRate = item.exchangeRate
+            
+            amountInOverseasCurrency += value
+            total += value / exchangeRate
+
+        } else if (item.expenseAmountSgd) {
+            const value = item.expenseAmountSgd
+
+            amountInSgd += value
+            total += value
+        }
+    })
     
     res.json({
         sgd: amountInSgd,
