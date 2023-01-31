@@ -1,19 +1,50 @@
 const { Markup } = require('telegraf')
 const api = require('../axiosConfig')
 const state = require('../states/stateEnum')
-const { displayMonthTotal } = require('./start')
+const { saveExpenseToDatabase } = require('./saveExpense')
 
 const addNewExpense = async (ctx) => {
     const telegramId = ctx.message.chat.username
-    await api.patch(`/users/${telegramId}`, {currentState: state.ENTER_AMOUNT_SGD})
+    const inOverseasMode = await api.get(`/users/${telegramId}/overseasMode`).then(val => val.data)
+    if (inOverseasMode) {
+        await api.patch(`/users/${telegramId}`, {currentState: state.ADD_EXPENSE_OVERSEAS})
+        ctx.reply("What currency do you want to use?", Markup.keyboard([
+            ['SGD', 'Overseas currency']
+        ]).oneTime().resize())
+    } else {
+        await api.patch(`/users/${telegramId}`, {currentState: state.ENTER_AMOUNT_SGD})
+        ctx.reply("Enter amount: ")
+    }
+}
+
+const addNewExpenseOverseasMode = async (ctx) => {
+    const userInput = ctx.message.text
+    const telegramId = ctx.message.chat.username
+
+    if (userInput == "Overseas currency") {
+        await api.patch(`/users/${telegramId}`, {currentState: state.ENTER_AMOUNT_OVERSEAS})
+    } else {
+        await api.patch(`/users/${telegramId}`, {currentState: state.ENTER_AMOUNT_SGD})
+    }
     ctx.reply("Enter amount: ")
 }
 
-const enterAmountSgd = async (ctx) => {
+const enterAmount = async (ctx) => {
     const telegramId = ctx.message.chat.username
-    const amount = ctx.message.text
-    await api.patch(`/users/${telegramId}`, {expenseAmount: amount})
+    const currentState = await api.get(`/users/${telegramId}/currentState`).then(value => value.data)
+    const amount = parseFloat(ctx.message.text)
+
+    if (currentState == state.ENTER_AMOUNT_SGD) {
+        await api.patch(`/users/${telegramId}`, {expenseAmountSgd: amount})
+        await api.patch(`/users/${telegramId}`, {expenseAmountOverseas: 0})
+
+    } else if (currentState == state.ENTER_AMOUNT_OVERSEAS) {
+        await api.patch(`/users/${telegramId}`, {expenseAmountOverseas: amount})
+        await api.patch(`/users/${telegramId}`, {expenseAmountSgd: 0})
+    }
+
     await api.patch(`/users/${telegramId}`, {currentState: state.ENTER_DESCRIPTION})
+
     ctx.reply("Enter description: ")
 }
 
@@ -31,23 +62,15 @@ const enterDescription = async (ctx) => {
 
 const enterCategory = async (ctx) => {
     const telegramId = ctx.message.chat.username
-    const amount = await api.get(`/users/${telegramId}/expenseAmount`)
-    const description = await api.get(`/users/${telegramId}/expenseDescription`)
     const category = ctx.message.text
-    await api.post('/expenses', {
-        "telegramId" : telegramId, 
-        "expenseAmountSgd" : amount.data,
-        "expenseDescription" : description.data,
-        "expenseCategory" : category
-    })
-    await api.patch(`/users/${telegramId}`, {currentState: state.START})
-    ctx.reply(`Added expense: ${description.data}, $${amount.data}`)
-    displayMonthTotal(ctx)
+    await api.patch(`/users/${telegramId}`, {expenseCategory: category})
+    await saveExpenseToDatabase(ctx)
 }
 
 module.exports = {
     addNewExpense,
-    enterAmountSgd,
+    enterAmount,
     enterDescription,
-    enterCategory
+    enterCategory,
+    addNewExpenseOverseasMode
 }

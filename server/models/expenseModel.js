@@ -12,7 +12,6 @@ const expenseSchema = new Schema ({
     }, 
     expenseAmountSgd : {
         type: Number,
-        required: true
     }, 
     expenseDescription : {
         type: String,

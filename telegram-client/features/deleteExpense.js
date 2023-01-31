@@ -1,7 +1,7 @@
 const { Markup } = require('telegraf')
 const api = require('../axiosConfig')
 const state = require('../states/stateEnum')
-const { displayMonthTotal } = require("./start")
+const { displayMonthTotal } = require("./localMode")
 
 const confirmation = async (ctx) => {
     ctx.reply("Are you sure?",Markup.keyboard([

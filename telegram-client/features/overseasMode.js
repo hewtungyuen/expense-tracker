@@ -1,7 +1,7 @@
 const api = require('../axiosConfig')
 const state = require('../states/stateEnum')
 const { Markup } = require('telegraf')
-
+const { displayMonthTotal } = require('./localMode')
 
 const setTripName = async (ctx) => {
     const telegramId = ctx.message.chat.username
@@ -15,14 +15,33 @@ const setTripName = async (ctx) => {
 const displayTripTotal = async (ctx) => {
     const telegramId = ctx.message.chat.username
 
-    const tripName = await api.get(`/users/${telegramId}/tripName`)
     await api.patch(`/users/${telegramId}`, {currentState: state.START})
-    ctx.reply(`Total expenses for ${tripName.data}: $100` , Markup.keyboard([
+    
+    const tripName = await api.get(`/users/${telegramId}/tripName`)
+    const tripTotal = await api.get(`/expenses/tripTotal/${telegramId}`).then(value => value.data)
+
+    ctx.reply(`Total expenses for ${tripName.data}: $${tripTotal.sgd} SGD, $${tripTotal.overseasCurrency} overseas currency, $${tripTotal.tripTotal} SGD total`, 
+        Markup.keyboard([
         ['Add expense', 'Delete expense'],
         ['Set exchange rate', 'Change currency'],
         ['Local mode'],
         ]).oneTime().resize()
     )
+}
+
+const addExpense = async (ctx) => {
+    await api.patch(`/users/${telegramId}`, {currentState: state.ADD_EXPENSE})
+    ctx.reply("What currency do you want to use?", Markup.keyboard([
+        ['SGD', 'Overseas currency']
+    ]))
+}
+
+const enterAmountOverseas = async (ctx) => {
+    const telegramId = ctx.message.chat.username
+    const amount = ctx.message.text
+    await api.patch(`/users/${telegramId}`, {expenseAmountOverseas: amount})
+    await api.patch(`/users/${telegramId}`, {currentState: state.ENTER_DESCRIPTION})
+    ctx.reply("Enter description: ")
 }
 
 const enterExchangeRate = async (ctx) => {
@@ -43,7 +62,7 @@ const setExchangeRate = async (ctx) => {
 const enterOverseasCurrency = async (ctx) => {
     const telegramId = ctx.message.chat.username
     ctx.reply('Enter amount in overseas currency: ')
-    await api.patch(`/users/${telegramId}`, {currentState: state.ENTER_AMOUNT_OVERSEAS})
+    await api.patch(`/users/${telegramId}`, {currentState: state.VIEW_CURRENCY_EXCHANGE})
 }
 
 const viewExchangedCurrency = async (ctx) => {
@@ -56,11 +75,21 @@ const viewExchangedCurrency = async (ctx) => {
     displayTripTotal(ctx)
 }
 
+const switchToLocalMode = async (ctx) => {
+    const telegramId = ctx.message.chat.username
+    await api.patch(`/users/${telegramId}`, {overseasMode: false})
+    ctx.reply('Switched to local mode')
+    displayMonthTotal(ctx)
+}
+
 module.exports = {
     setTripName,
     displayTripTotal,
     enterExchangeRate,
     setExchangeRate,
     enterOverseasCurrency,
-    viewExchangedCurrency,    
+    viewExchangedCurrency,   
+    enterAmountOverseas,
+    addExpense,
+    switchToLocalMode
 }

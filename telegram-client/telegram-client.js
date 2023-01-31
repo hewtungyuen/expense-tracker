@@ -1,12 +1,11 @@
 const dotenv = require("dotenv").config()
 const { Telegraf } = require('telegraf');
 
+const { initialiseBot } = require("./features/start")
 const { 
-    initialiseBot,
     displayMonthTotal,
-    switchToLocalMode,
     switchToOverseasMode
-} = require("./features/start")
+} = require("./features/localMode")
 
 const {
     addNewExpense
@@ -18,20 +17,28 @@ const {
 
 const {
     enterExchangeRate, 
-    enterOverseasCurrency
+    enterOverseasCurrency,
+    switchToLocalMode
 } = require("./features/overseasMode")
 
-const { textHandler } = require('./states/stateHandler')
+const { textHandler } = require('./states/textHandler')
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
+// commands
 bot.command('/start', initialiseBot)
 bot.command('/cancel', displayMonthTotal)
+
+// local mode
 bot.hears('Add expense', addNewExpense)
 bot.hears('Delete expense', confirmation)
 bot.hears('Overseas mode', switchToOverseasMode)
+
+// overseas mode
 bot.hears('Local mode', switchToLocalMode)
 bot.hears('Set exchange rate', enterExchangeRate)
 bot.hears('Change currency', enterOverseasCurrency)
+
+// text handler
 bot.on('text', textHandler) 
 
 bot.launch()

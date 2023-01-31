@@ -2,9 +2,10 @@ const state = require("./stateEnum")
 const api = require('../axiosConfig')
 
 const {
-    enterAmountSgd,
+    enterAmount,
     enterDescription,
-    enterCategory
+    enterCategory,
+    addNewExpenseOverseasMode
 } = require('../features/addExpense')
 
 const {
@@ -18,7 +19,7 @@ const {
     viewExchangedCurrency
 } = require('../features/overseasMode')
 
-const { displayMonthTotal } = require("../features/start")
+const { displayMonthTotal } = require("../features/localMode")
 const numberValidationDecorator = require("../utils/inputValidation")
 
 const textHandler = async (ctx) => {
@@ -26,14 +27,22 @@ const textHandler = async (ctx) => {
     const currentState = await api.get(`/users/${telegramId}/currentState`)
     console.log("current state: " + currentState.data)
     const userInput = ctx.message.text
+    const inOverseasMode = false
     
     switch (currentState.data) {
         case state.START:
-            // if else for local and Overseas mode
-            displayMonthTotal(ctx)
+            if (inOverseasMode) {
+                displayTripTotal(ctx)
+            } else {
+                displayMonthTotal(ctx)
+            }
             break
-        case state.ENTER_AMOUNT_SGD: 
-            const decorator = numberValidationDecorator(enterAmountSgd)
+        case state.ADD_EXPENSE_OVERSEAS:
+            addNewExpenseOverseasMode(ctx)
+            break
+        case state.ENTER_AMOUNT_SGD, state.ENTER_AMOUNT_OVERSEAS: 
+            console.log('HERE') // TODO: this is not logging out 
+            const decorator = numberValidationDecorator(enterAmount)
             decorator(ctx)
             break
         case state.ENTER_DESCRIPTION: 
@@ -55,7 +64,7 @@ const textHandler = async (ctx) => {
         case state.ENTER_EXCHANGE_RATE:
             setExchangeRate(ctx)
             break
-        case state.ENTER_AMOUNT_OVERSEAS:
+        case state.VIEW_CURRENCY_EXCHANGE:
             viewExchangedCurrency(ctx)
             break
     }
