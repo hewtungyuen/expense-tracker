@@ -15,10 +15,10 @@ const saveExpenseToDatabase = async (ctx) => {
         
         if (expenseAmountOverseas != 0) {
             const exchangeRate = await api.get(`/users/${telegramId}/exchangeRate`).then(value => value.data)
-            saveExpenseInOverseasCurrency(telegramId, expenseAmountOverseas, description, category, tripName, exchangeRate)
+            await saveExpenseInOverseasCurrency(telegramId, expenseAmountOverseas, description, category, tripName, exchangeRate)
         } else {
             const expenseAmountSgd = await api.get(`/users/${telegramId}/expenseAmountSgd`).then(value => value.data)
-            saveExpenseInSgd(telegramId, expenseAmountSgd, description, category, tripName)
+            await saveExpenseInSgd(telegramId, expenseAmountSgd, description, category, tripName)
         }
 
         displayTripTotal(ctx)

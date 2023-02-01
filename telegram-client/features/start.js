@@ -6,7 +6,11 @@ const initialiseBot = async (ctx) => {
     const telegramId = ctx.message.chat.username
     await api.post(`users/${telegramId}`)
     await ctx.reply('Bot initialised')
+    renderKeyboard(ctx)
+}
 
+const renderKeyboard = async (ctx) => {
+    const telegramId = ctx.message.chat.username
     const inOverseasMode = await api.get(`/users/${telegramId}/overseasMode`).then(val => val.data)
 
     if (inOverseasMode) {
@@ -17,5 +21,6 @@ const initialiseBot = async (ctx) => {
 }
 
 module.exports = {
-    initialiseBot
+    initialiseBot,
+    renderKeyboard
 }

@@ -22,23 +22,20 @@ const {
     viewExchangedCurrency
 } = require('../features/currencyExchange')
 
+const { renderKeyboard } = require('../features/start') 
+
 const { displayMonthTotal } = require("../features/localMode")
 const numberValidationDecorator = require("../utils/inputValidation")
 
 const textHandler = async (ctx) => {
     const telegramId = ctx.message.chat.username
     const currentState = await api.get(`/users/${telegramId}/currentState`)
-    console.log("current state: " + currentState.data)
     const userInput = ctx.message.text
-    const inOverseasMode = false
+    console.log("current state: " + currentState.data)
     
     switch (currentState.data) {
         case state.START:
-            if (inOverseasMode) {
-                displayTripTotal(ctx)
-            } else {
-                displayMonthTotal(ctx)
-            }
+            renderKeyboard(ctx)
             break
         case state.ADD_EXPENSE_OVERSEAS:
             addNewExpenseOverseasMode(ctx)
