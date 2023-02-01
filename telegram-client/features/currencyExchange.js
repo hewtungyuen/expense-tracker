@@ -1,6 +1,5 @@
 const api = require('../axiosConfig')
 const state = require('../states/stateEnum')
-const { displayTripTotal } = require('./overseasMode')
 
 const enterExchangeRate = async (ctx) => {
     const telegramId = ctx.message.chat.username

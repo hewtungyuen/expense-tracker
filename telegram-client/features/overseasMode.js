@@ -9,7 +9,7 @@ const setTripName = async (ctx) => {
     const newTripName = ctx.message.text
     await api.patch(`/users/${telegramId}`, {currentState: state.START})
     await api.patch(`/users/${telegramId}`, {tripName: newTripName})
-    ctx.reply(`Trip name set to: ${newTripName}`)
+    await ctx.reply(`Trip name set to: ${newTripName}`)
     enterExchangeRate(ctx)
 }
 
@@ -23,8 +23,8 @@ const displayTripTotal = async (ctx) => {
 
     ctx.reply(
         `Total expenses for ${tripName.data}: 
-        SGD: $${tripTotal.sgd}, 
-        Overseas currency: $${tripTotal.overseasCurrency},
+        SGD: $${parseFloat(tripTotal.sgd).toFixed(2)}, 
+        Overseas currency: $${parseFloat(tripTotal.overseasCurrency).toFixed(2)},
         Total: $${parseFloat(tripTotal.total).toFixed(2)} SGD`, Markup.keyboard([
         ['Add expense', 'Delete expense'],
         ['Set exchange rate', 'Change currency'],
@@ -36,7 +36,7 @@ const displayTripTotal = async (ctx) => {
 const switchToLocalMode = async (ctx) => {
     const telegramId = ctx.message.chat.username
     await api.patch(`/users/${telegramId}`, {overseasMode: false})
-    ctx.reply('Switched to local mode')
+    await ctx.reply('Switched to local mode')
     displayMonthTotal(ctx)
 }
 

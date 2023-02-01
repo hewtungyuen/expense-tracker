@@ -24,7 +24,6 @@ const {
 
 const { renderKeyboard } = require('../features/start') 
 
-const { displayMonthTotal } = require("../features/localMode")
 const numberValidationDecorator = require("../utils/inputValidation")
 
 const textHandler = async (ctx) => {
@@ -55,7 +54,7 @@ const textHandler = async (ctx) => {
             if (userInput == 'yes') {
                 deletePreviousExpense(ctx)
             } else {
-                displayMonthTotal(ctx)
+                renderKeyboard(ctx)
             }
             break
         case state.ENTER_TRIP_NAME:

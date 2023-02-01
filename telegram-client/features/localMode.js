@@ -8,7 +8,7 @@ const displayMonthTotal = async (ctx) => {
     const telegramId = ctx.message.chat.username
     const monthTotal = await api.get(`/expenses/${telegramId}`)
     await api.patch(`/users/${telegramId}`, {currentState: state.START})
-    ctx.reply(`Total expenses for ${month}: $${monthTotal.data}` , Markup.keyboard([
+    ctx.reply(`Total expenses for ${month}: $${parseFloat(monthTotal.data).toFixed(2)}` , Markup.keyboard([
         ['Add expense', 'Delete expense'],
         ['Overseas mode']
         ]).oneTime().resize()

@@ -19,8 +19,6 @@ const deletePreviousExpense = async (ctx) => {
 
     const canDelete = await canDeleteExpense(telegramId, inOverseasMode, latestExpense)
 
-    console.log(canDelete)
-
     if (!canDelete) { 
         ctx.reply(`Cannot delete expense. You are either:
         1. In local mode, deleting overseas expense
