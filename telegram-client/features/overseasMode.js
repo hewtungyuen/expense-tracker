@@ -33,6 +33,14 @@ const displayTripTotal = async (ctx) => {
     )
 }
 
+const switchToLocalModeConfirmation = async (ctx) => {
+    const telegramId = ctx.message.chat.username
+    await api.patch(`/users/${telegramId}`, {currentState: state.SWITCH_TO_LOCAL_MODE})
+    ctx.reply(`Are you sure?`,Markup.keyboard([
+        ['yes'],['no']
+    ]).oneTime().resize())
+}
+
 const switchToLocalMode = async (ctx) => {
     const telegramId = ctx.message.chat.username
     await api.patch(`/users/${telegramId}`, {overseasMode: false})
@@ -43,5 +51,6 @@ const switchToLocalMode = async (ctx) => {
 module.exports = {
     setTripName,
     displayTripTotal,
-    switchToLocalMode
+    switchToLocalMode,
+    switchToLocalModeConfirmation
 }

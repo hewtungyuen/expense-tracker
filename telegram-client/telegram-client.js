@@ -12,11 +12,11 @@ const {
 } = require("./features/addExpense") 
 
 const {
-    confirmation,
+    deleteConfirmation,
 } = require("./features/deleteExpense")
 
 const {
-    switchToLocalMode
+    switchToLocalModeConfirmation
 } = require("./features/overseasMode")
 
 const {
@@ -33,11 +33,11 @@ bot.command('/cancel', displayMonthTotal)
 
 // local mode
 bot.hears('Add expense', addNewExpense)
-bot.hears('Delete expense', confirmation)
+bot.hears('Delete expense', deleteConfirmation)
 bot.hears('Overseas mode', switchToOverseasMode)
 
 // overseas mode
-bot.hears('Local mode', switchToLocalMode)
+bot.hears('Local mode', switchToLocalModeConfirmation)
 bot.hears('Set exchange rate', enterExchangeRate)
 bot.hears('Change currency', enterOverseasCurrency)
 

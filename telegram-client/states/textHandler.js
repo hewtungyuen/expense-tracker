@@ -15,6 +15,7 @@ const {
 const {
     setTripName,
     displayTripTotal,
+    switchToLocalMode
 } = require('../features/overseasMode')
 
 const {
@@ -68,8 +69,16 @@ const textHandler = async (ctx) => {
             await viewExchangedCurrency(ctx)
             displayTripTotal(ctx)
             break
+        case state.SWITCH_TO_LOCAL_MODE:
+            if (userInput == 'yes') {
+                switchToLocalMode(ctx)
+            } else {
+                renderKeyboard(ctx)
+            }
+            break
     }
 }
+
 module.exports = { 
     textHandler 
 }
