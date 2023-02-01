@@ -16,10 +16,13 @@ const {
 } = require("./features/deleteExpense")
 
 const {
-    enterExchangeRate, 
-    enterOverseasCurrency,
     switchToLocalMode
 } = require("./features/overseasMode")
+
+const {
+    enterExchangeRate, 
+    enterOverseasCurrency
+} = require("./features/currencyExchange")
 
 const { textHandler } = require('./states/textHandler')
 const bot = new Telegraf(process.env.BOT_TOKEN);

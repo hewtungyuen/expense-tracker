@@ -15,9 +15,12 @@ const {
 const {
     setTripName,
     displayTripTotal,
+} = require('../features/overseasMode')
+
+const {
     setExchangeRate,
     viewExchangedCurrency
-} = require('../features/overseasMode')
+} = require('../features/currencyExchange')
 
 const { displayMonthTotal } = require("../features/localMode")
 const numberValidationDecorator = require("../utils/inputValidation")

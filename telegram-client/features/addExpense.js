@@ -48,6 +48,14 @@ const enterAmount = async (ctx) => {
     ctx.reply("Enter description: ")
 }
 
+const enterAmountOverseas = async (ctx) => {
+    const telegramId = ctx.message.chat.username
+    const amount = ctx.message.text
+    await api.patch(`/users/${telegramId}`, {expenseAmountOverseas: amount})
+    await api.patch(`/users/${telegramId}`, {currentState: state.ENTER_DESCRIPTION})
+    ctx.reply("Enter description: ")
+}
+
 const enterDescription = async (ctx) => {
     const telegramId = ctx.message.chat.username
     const description = ctx.message.text
@@ -72,5 +80,6 @@ module.exports = {
     enterAmount,
     enterDescription,
     enterCategory,
-    addNewExpenseOverseasMode
+    addNewExpenseOverseasMode,
+    enterAmountOverseas
 }
