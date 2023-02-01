@@ -2,6 +2,7 @@ const api = require('../axiosConfig')
 const state = require('../states/stateEnum')
 const { Markup } = require('telegraf')
 const { displayMonthTotal } = require('./localMode')
+const { enterExchangeRate } = require('./currencyExchange')
 
 const setTripName = async (ctx) => {
     const telegramId = ctx.message.chat.username
@@ -9,7 +10,7 @@ const setTripName = async (ctx) => {
     await api.patch(`/users/${telegramId}`, {currentState: state.START})
     await api.patch(`/users/${telegramId}`, {tripName: newTripName})
     ctx.reply(`Trip name set to: ${newTripName}`)
-    displayTripTotal(ctx)
+    enterExchangeRate(ctx)
 }
 
 const displayTripTotal = async (ctx) => {

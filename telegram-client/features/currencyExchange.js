@@ -11,10 +11,9 @@ const enterExchangeRate = async (ctx) => {
 const setExchangeRate = async (ctx) => {
     const newExchangeRate = ctx.message.text
     const telegramId = ctx.message.chat.username
-    api.patch(`/users/${telegramId}`, {exchangeRate: newExchangeRate})
-    ctx.reply(`Exchange rate set to ${newExchangeRate}`)
+    await api.patch(`/users/${telegramId}`, {exchangeRate: newExchangeRate})
     await api.patch(`/users/${telegramId}`, {currentState: state.START})
-    displayTripTotal(ctx)
+    ctx.reply(`Exchange rate set to ${newExchangeRate}`)
 }
 
 const enterOverseasCurrency = async (ctx) => {
@@ -30,7 +29,6 @@ const viewExchangedCurrency = async (ctx) => {
     const amountInSgd = amoutInOverseasCurrency / exchangeRate.data
 
     ctx.reply(`Amount in SGD: $${parseFloat(amountInSgd).toFixed(2)}`)
-    displayTripTotal(ctx)
 }
 
 module.exports = {

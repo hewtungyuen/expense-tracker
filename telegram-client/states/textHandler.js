@@ -65,10 +65,12 @@ const textHandler = async (ctx) => {
             setTripName(ctx)
             break
         case state.ENTER_EXCHANGE_RATE:
-            setExchangeRate(ctx)
+            await setExchangeRate(ctx)
+            displayTripTotal(ctx)
             break
         case state.VIEW_CURRENCY_EXCHANGE:
-            viewExchangedCurrency(ctx)
+            await viewExchangedCurrency(ctx)
+            displayTripTotal(ctx)
             break
     }
 }
