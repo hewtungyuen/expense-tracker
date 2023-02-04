@@ -91,10 +91,32 @@ const getCurrentTripTotal = async (req, res) => {
     })
 }
 
+const getYesterdayTotal = async (req, res) => {
+    const start = new Date();
+    start.setDate(start.getDate() - 1)
+    start.setHours(0,0,0,0);
+
+    const end = new Date();
+    end.setDate(end.getDate() - 1)
+    end.setHours(23,59,59,999);
+
+    const id = req.params.id
+    const yesterdayExpenses = await Expense.find({
+        date: {
+            $gte: start,
+            $lt: end
+        }, 
+        telegramId: id
+    })
+
+    res.json(yesterdayExpenses)
+}
+
 module.exports = {
     addExpense,
     deleteExpenseById,
     getLatestExpenseId,
     getCurrentMonthTotalInSgd,
-    getCurrentTripTotal
+    getCurrentTripTotal,
+    getYesterdayTotal
 }
