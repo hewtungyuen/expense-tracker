@@ -6,12 +6,17 @@ const expenseSchema = new Schema ({
         type: String,
         required: true
     }, 
-    date : {
-        type: Date,
-        default: Date.now
-    }, 
-    expenseAmountSgd : {
+    year : {
         type: Number,
+        required: true
+    }, 
+    month : {
+        type: Number,
+        required: true
+    }, 
+    day : {
+        type: Number,
+        required: true
     }, 
     expenseDescription : {
         type: String,
@@ -20,6 +25,9 @@ const expenseSchema = new Schema ({
     expenseCategory : {
         type: String,
         required: true
+    }, 
+    expenseAmountSgd : {
+        type: Number,
     }, 
     expenseAmountOverseas : {
         type: Number,

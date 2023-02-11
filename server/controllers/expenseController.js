@@ -18,7 +18,7 @@ const deleteExpenseById = (req, res) => {
 
 const getLatestExpenseId = (req, res) => {
     Expense.find({}).sort({
-        date: -1
+        _id: -1
     }).limit(1).then(latestExpense => (
         res.json(
             latestExpense[0]
@@ -27,21 +27,14 @@ const getLatestExpenseId = (req, res) => {
 }
 
 const getCurrentMonthTotalInSgd = async (req, res) => {
-    const start = new Date();
-    start.setDate(1);
-    start.setHours(0,0,0,0);
-
-    const end = new Date();
-    end.setMonth(start.getMonth() + 1);
-    end.setDate(0);
-    end.setHours(23,59,59,999);
-
     const id = req.params.id
+    const date = new Date();
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+
     const monthExpenses = await Expense.find({
-        date: {
-            $gte: start,
-            $lt: end
-        }, 
+        year: year,
+        month: month,
         telegramId: id
     })
 
@@ -92,24 +85,45 @@ const getCurrentTripTotal = async (req, res) => {
 }
 
 const getYesterdayTotal = async (req, res) => {
-    const start = new Date();
-    start.setDate(start.getDate() - 1)
-    start.setHours(0,0,0,0);
+    const date = new Date();
+    date.setDate(date.getDate() - 1)
 
-    const end = new Date();
-    end.setDate(end.getDate() - 1)
-    end.setHours(23,59,59,999);
-
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    
     const id = req.params.id
     const yesterdayExpenses = await Expense.find({
-        date: {
-            $gte: start,
-            $lt: end
-        }, 
+        year: year,
+        month: month,
+        day: day,
         telegramId: id
     })
 
     res.json(yesterdayExpenses)
+}
+
+const filterExpenses = async (req, res) => {
+    const date = new Date();
+
+    const filters = {
+        "telegramId": req.body.telegramId,
+        "year": date.getFullYear(),
+        "month": date.getMonth() + 1,
+    }
+
+    const year = req.body.year
+    const month = req.body.month
+    const expenseCategory = req.body.expenseCategory
+    const tripName = req.body.tripName
+
+    if (year) {filters.year = year}
+    if (month) {filters.month = month}
+    if (expenseCategory) {filters.expenseCategory = expenseCategory}
+    if (tripName) {filters.tripName = tripName}
+
+    const filteredExpenses = await Expense.find(filters)
+    res.json(filteredExpenses)
 }
 
 module.exports = {
@@ -118,5 +132,6 @@ module.exports = {
     getLatestExpenseId,
     getCurrentMonthTotalInSgd,
     getCurrentTripTotal,
-    getYesterdayTotal
+    getYesterdayTotal,
+    filterExpenses
 }
