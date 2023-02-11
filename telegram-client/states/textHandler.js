@@ -23,7 +23,7 @@ const {
     viewExchangedCurrency
 } = require('../features/currencyExchange')
 
-const { renderKeyboard } = require('../features/start') 
+const { renderKeyboard, initialiseBot } = require('../features/start') 
 
 const numberValidationDecorator = require("../utils/inputValidation")
 
@@ -35,7 +35,7 @@ const textHandler = async (ctx) => {
     
     switch (currentState.data) {
         case state.START:
-            renderKeyboard(ctx)
+            initialiseBot(ctx)
             break
         case state.ADD_EXPENSE_OVERSEAS:
             addNewExpenseOverseasMode(ctx)

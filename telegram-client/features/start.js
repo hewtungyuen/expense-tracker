@@ -5,7 +5,6 @@ const { displayTripTotal } = require('./overseasMode')
 const initialiseBot = async (ctx) => {
     const telegramId = ctx.message.chat.username
     await api.post(`users/${telegramId}`)
-    await ctx.reply('Bot initialised')
     renderKeyboard(ctx)
 }
 
