@@ -10,7 +10,7 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 export default function CategoryTotals() {
   return (
     <Stack spacing={1}>
-      <Typography variant="h6">Category totals</Typography>
+      <Typography variant="h6" fontWeight={'bold'}>Category totals</Typography>
       <Box
         classname="category totals"
         sx={{

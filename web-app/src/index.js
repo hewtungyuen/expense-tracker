@@ -8,11 +8,20 @@ import Expenses from "./routes/Expenses";
 import { Stack } from "@mui/material";
 import Trips from "./routes/Trips";
 
+import { createTheme, ThemeProvider } from '@mui/material';
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'sans-serif',
+    ].join(','),
+    fontWeight: 510,
+  },});
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Container maxWidth="sm" sx={{ bgcolor: "#cfe8fc", height: "100vh", paddingTop:5}}>
+      <Container maxWidth="sm" sx={{ bgcolor: "#cdc6c3", height: "100vh", paddingTop:5}}>
         <Stack spacing={4}>
           <Navbar />
           <Outlet />
@@ -37,7 +46,7 @@ const router = createBrowserRouter([
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <ThemeProvider theme={theme}>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </ThemeProvider>
 );

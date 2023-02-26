@@ -6,7 +6,7 @@ import Fastfood from "@mui/icons-material/Fastfood";
 export default function ExpenseList() {
   return (
     <Stack spacing={1}>
-      <Typography variant="h6">Expenses</Typography>
+      <Typography variant="h6" fontWeight={'bold'}>Expenses</Typography>
 
       <ExpenseDetail
         categoryLogo={<Fastfood fontSize="large" />}
