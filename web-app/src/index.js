@@ -1,12 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/utils/Navbar";
 import Home from "./routes/Home";
 import Container from "@mui/material/Container";
 import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import Expenses from "./routes/Expenses";
 import { Stack } from "@mui/material";
-import Trips from "./routes/Trips";
 
 import { createTheme, ThemeProvider } from '@mui/material';
 const theme = createTheme({
@@ -24,7 +23,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Container maxWidth="md" sx={{ bgcolor: "#eff6e0", height: "100vh", paddingTop:5}}>
+      <Container maxWidth="md" sx={{ bgcolor: "#eff6e0", p:5}}>
         <Stack spacing={4}>
           <Navbar />
           <Outlet />
@@ -42,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/trips",
-        element: <Trips />,
+        element: <Home trips={true} />,
       },
     ],
   },

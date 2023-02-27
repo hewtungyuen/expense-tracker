@@ -1,12 +1,45 @@
 import { Stack } from "@mui/material";
 import ExpenseCard from "../components/ExpenseCard";
 
-export default function Home() {
-  return (
-    <Stack spacing={2}>
-      <ExpenseCard description={"Feb 2023"} totalAmount={100} />
-      <ExpenseCard description={"Jan 2023"} totalAmount={100} />
-      <ExpenseCard description={"Dec 2022"} totalAmount={100} />
-    </Stack>
-  );
+const local = [
+  {
+    month: "Feb 2023",
+    total: "100",
+  },
+  {
+    month: "Jan 2023",
+    total: "100",
+  },
+  {
+    month: "Dec 2023",
+    total: "100",
+  },
+];
+
+const overseas = [
+  {
+    month: "Vietnam 2023",
+    total: "100",
+  },
+  {
+    month: "Taiwan 2022",
+    total: "100",
+  },
+  {
+    month: "Korea 2022",
+    total: "100",
+  },
+];
+export default function Home({ trips }) {
+  var items;
+  if (trips) {
+    items = overseas.map((d) => (
+      <ExpenseCard description={d.month} totalAmount={d.total} />
+    ));
+  } else {
+    items = local.map((d) => (
+      <ExpenseCard description={d.month} totalAmount={d.total} />
+    ));
+  }
+  return <Stack spacing={2}>{items}</Stack>;
 }

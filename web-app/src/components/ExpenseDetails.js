@@ -1,4 +1,10 @@
-import { Stack, Box, Card, Grid, Typography } from "@mui/material";
+import { Stack, Card, Grid, Typography } from "@mui/material";
+import {
+  FoodIcon,
+  LeisureIcon,
+  ShoppingIcon,
+  TransportIcon,
+} from "./utils/Icons";
 
 function DescriptionAndDate({ date, tripName }) {
   if (tripName) {
@@ -11,26 +17,41 @@ function DescriptionAndDate({ date, tripName }) {
   return <Typography variant="subtitle2">{date}</Typography>;
 }
 
-function ExpenseAmount({ amountOverseasCurrency, amountSgd }) {
-  if (amountOverseasCurrency) {
+function ExpenseAmount({ expenseAmountOverseas, expenseAmountSgd }) {
+  if (expenseAmountOverseas) {
     return (
       <Stack alignitems="flex-end">
-        <Typography>$ {amountOverseasCurrency}</Typography>
-        <Typography variant="subtitle2">= SGD {amountSgd}</Typography>
+        <Typography>$ {expenseAmountOverseas}</Typography>
+        <Typography variant="subtitle2">= SGD {expenseAmountSgd}</Typography>
       </Stack>
     );
   }
 
-  return <Typography>SGD {amountSgd}</Typography>;
+  return <Typography>SGD {expenseAmountSgd}</Typography>;
+}
+
+function CategoryIconSelector({ expenseCategory }) {
+  switch (expenseCategory) {
+    case "Shopping":
+      return <ShoppingIcon />;
+    case "Leisure":
+      return <LeisureIcon />;
+    case "Food":
+      return <FoodIcon />;
+    case "Transport":
+      return <TransportIcon />;
+    default:
+      return <>{expenseCategory}</>
+  }
 }
 
 export default function ExpenseDetails({
-  categoryLogo,
-  description,
-  amountSgd,
+  expenseCategory,
+  expenseDescription,
+  expenseAmountSgd,
   date,
   tripName,
-  amountOverseasCurrency,
+  expenseAmountOverseas,
 }) {
   return (
     <Card
@@ -46,16 +67,19 @@ export default function ExpenseDetails({
         justifyContent="space-between"
       >
         <Grid xs={1} display="flex" justifyContent="center" alignItems="center">
-          {categoryLogo}
+          <CategoryIconSelector expenseCategory={expenseCategory}/>
         </Grid>
 
         <Grid xs={10.5}>
           <Stack direction={"row"} justifyContent="space-between">
             <Stack>
-              <Typography fontWeight={"bold"}>{description}</Typography>
+              <Typography fontWeight={"bold"}>{expenseDescription}</Typography>
               <DescriptionAndDate date={date} tripName={tripName} />
             </Stack>
-            <ExpenseAmount amountOverseasCurrency={amountOverseasCurrency} amountSgd={amountSgd}/>
+            <ExpenseAmount
+              expenseAmountOverseas={expenseAmountOverseas}
+              expenseAmountSgd={expenseAmountSgd}
+            />
           </Stack>
         </Grid>
       </Grid>

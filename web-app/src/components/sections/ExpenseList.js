@@ -1,8 +1,66 @@
 import { Box, Stack, Typography } from "@mui/material";
 import ExpenseDetails from "../ExpenseDetails";
-import { FoodIcon, LeisureIcon, AddExpenseIcon, ShoppingIcon, TransportIcon } from "../Icons";
+import {
+  AddExpenseIcon,
+} from "../utils/Icons";
+
+const data = [
+  {
+    date: "23 Feb 2023",
+    expenseDescription: "Mcdonalds ice cream",
+    expenseCategory: "Food",
+    expenseAmountSgd: "1.00",
+  },
+  {
+    date: "23 Feb 2023",
+    expenseDescription: "Shirt",
+    expenseCategory: "Shopping",
+    expenseAmountSgd: "58.85",
+    tripName: "Vietnam",
+  },
+  {
+    date: "23 Feb 2023",
+    expenseDescription: "B8a climb",
+    expenseCategory: "Leisure",
+    expenseAmountSgd: "15.00",
+  },
+  {
+    date: "23 Feb 2023",
+    expenseDescription: "Sneakers",
+    expenseCategory: "Shopping",
+    expenseAmountSgd: "58.85",
+    expenseAmountOverseas: "100000",
+    tripName: "Vietnam",
+  },
+  {
+    date: "23 Feb 2023",
+    expenseDescription: "Sneakers",
+    expenseCategory: "Shopping",
+    expenseAmountSgd: "58.85",
+    expenseAmountOverseas: "100000",
+    tripName: "Vietnam",
+  },
+
+  {
+    date: "23 Feb 2023",
+    expenseDescription: "Grab",
+    expenseCategory: "Transport",
+    expenseAmountSgd: "10.00",
+    tripName: "Vietnam",
+  },
+];
 
 export default function ExpenseList() {
+  const items = data.map((d) => (
+    <ExpenseDetails
+      expenseCategory={d.expenseCategory}
+      expenseDescription={d.expenseDescription}
+      date={d.date}
+      expenseAmountSgd={d.expenseAmountSgd}
+      expenseAmountOverseas={d.expenseAmountOverseas}
+      tripName={d.tripName}
+    />
+  ));
   return (
     <Stack spacing={1}>
       <Box
@@ -16,28 +74,7 @@ export default function ExpenseList() {
         </Typography>
         <AddExpenseIcon fontSize="large" />
       </Box>
-
-      <ExpenseDetails
-        categoryLogo={<FoodIcon fontSize="large" />}
-        description="Mcdonalds ice cream"
-        date="28 Feb 2023"
-        amountSgd="1.00"
-      ></ExpenseDetails>
-
-      <ExpenseDetails
-        categoryLogo={<LeisureIcon fontSize="large" />}
-        description="B8a climb"
-        date="28 Feb 2023"
-        amountSgd="1.00"
-      ></ExpenseDetails>
-      <ExpenseDetails
-        categoryLogo={<ShoppingIcon fontSize="large" />}
-        description="Air force 1"
-        date="28 Feb 2023"
-        amountSgd="1.00"
-        amountOverseasCurrency="650000"
-        tripName="Vietnam"
-      ></ExpenseDetails>
+      {items}
     </Stack>
   );
 }

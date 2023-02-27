@@ -1,6 +1,11 @@
 import CategoryTotal from "../CategoryTotal";
 import { Stack, Typography, Grid } from "@mui/material";
-import { FoodIcon, LeisureIcon, ShoppingIcon, TransportIcon } from "../Icons";
+import { FoodIcon, LeisureIcon, ShoppingIcon, TransportIcon } from "../utils/Icons";
+
+const foodAmount = '100'
+const leisureAmount = '100'
+const shoppingAmount = '100'
+const transportAmount = '100'
 
 export default function CategoryTotals() {
   return (
@@ -16,14 +21,14 @@ export default function CategoryTotals() {
               <FoodIcon />
             }
             category={"Food"}
-            amount={100}
+            amount={foodAmount}
           />
         </Grid>
         <Grid xs={6} sm={12}>
           <CategoryTotal
             logo={<LeisureIcon />}
             category={"Leisure"}
-            amount={100}
+            amount={leisureAmount}
           />
         </Grid>
 
@@ -31,7 +36,7 @@ export default function CategoryTotals() {
           <CategoryTotal
             logo={<ShoppingIcon />}
             category={"Shopping"}
-            amount={100}
+            amount={shoppingAmount}
           />
         </Grid>
 
@@ -39,7 +44,7 @@ export default function CategoryTotals() {
           <CategoryTotal
             logo={<TransportIcon />}
             category={"Transport"}
-            amount={100}
+            amount={transportAmount}
           />
         </Grid>
       </Grid>
