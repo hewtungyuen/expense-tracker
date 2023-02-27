@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import ExpenseDetail from "../ExpenseDetail";
+import ExpenseDetails from "../ExpenseDetails";
 import { FoodIcon, LeisureIcon, AddExpenseIcon, ShoppingIcon, TransportIcon } from "../Icons";
 
 export default function ExpenseList() {
@@ -17,19 +17,27 @@ export default function ExpenseList() {
         <AddExpenseIcon fontSize="large" />
       </Box>
 
-      <ExpenseDetail
+      <ExpenseDetails
         categoryLogo={<FoodIcon fontSize="large" />}
         description="Mcdonalds ice cream"
         date="28 Feb 2023"
-        amount="1.00"
-      ></ExpenseDetail>
+        amountSgd="1.00"
+      ></ExpenseDetails>
 
-      <ExpenseDetail
+      <ExpenseDetails
         categoryLogo={<LeisureIcon fontSize="large" />}
         description="B8a climb"
         date="28 Feb 2023"
-        amount="1.00"
-      ></ExpenseDetail>
+        amountSgd="1.00"
+      ></ExpenseDetails>
+      <ExpenseDetails
+        categoryLogo={<ShoppingIcon fontSize="large" />}
+        description="Air force 1"
+        date="28 Feb 2023"
+        amountSgd="1.00"
+        amountOverseasCurrency="650000"
+        tripName="Vietnam"
+      ></ExpenseDetails>
     </Stack>
   );
 }
