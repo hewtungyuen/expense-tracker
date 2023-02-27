@@ -1,11 +1,11 @@
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 
-export default function CategoryTotal({ children, category, amount }) {
+export default function CategoryTotal({ logo, category, amount }) {
   return (
     <>
       <Stack direction="row" spacing={1}>
-        {children}
+        {logo}
         <Stack>
           <Typography fontWeight="bold">{category}</Typography>
           <Typography variant="subtitle2">${amount}</Typography>

@@ -1,29 +1,35 @@
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import ExpenseDetail from "../ExpenseDetail";
-import EditIcon from "@mui/icons-material/Edit";
-import Fastfood from "@mui/icons-material/Fastfood";
+import { FoodIcon, LeisureIcon, AddExpenseIcon, ShoppingIcon, TransportIcon } from "../Icons";
 
 export default function ExpenseList() {
   return (
     <Stack spacing={1}>
-      <Typography variant="h6" fontWeight={'bold'}>Expenses</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography variant="h6" fontWeight={"bold"}>
+          Expenses
+        </Typography>
+        <AddExpenseIcon fontSize="large" />
+      </Box>
 
       <ExpenseDetail
-        categoryLogo={<Fastfood fontSize="large" />}
-        editLogo={<EditIcon fontSize="small" />}
-        description="mcdonalds ice cream"
+        categoryLogo={<FoodIcon fontSize="large" />}
+        description="Mcdonalds ice cream"
         date="28 Feb 2023"
         amount="1.00"
       ></ExpenseDetail>
 
       <ExpenseDetail
-        categoryLogo={<Fastfood fontSize="large" />}
-        editLogo={<EditIcon fontSize="small" />}
-        description="mcdonalds ice cream"
+        categoryLogo={<LeisureIcon fontSize="large" />}
+        description="B8a climb"
         date="28 Feb 2023"
         amount="1.00"
       ></ExpenseDetail>
-
     </Stack>
   );
 }

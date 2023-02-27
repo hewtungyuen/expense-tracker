@@ -1,23 +1,28 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Card, Grid, Typography } from "@mui/material";
 
 export default function ExpenseDetail({
   categoryLogo,
-  editLogo,
   description,
   amount,
   date,
 }) {
   return (
-    <>
+    <Card
+      sx={{
+        bgcolor: "#aec3b0",
+      }}
+    >
       <Grid
         container
         sx={{
-          bgcolor: "white",
-          padding:2,
+          padding: 2,
         }}
+        justifyContent="space-between"
       >
-        <Grid xs={1.5} display="flex" justifyContent="center" alignItems="center">{categoryLogo}</Grid>
-        <Grid xs={9} >
+        <Grid xs={1} display="flex" justifyContent="center" alignItems="center">
+          {categoryLogo}
+        </Grid>
+        <Grid xs={10.5}>
           <div className="description, date and amount">
             <Box
               sx={{
@@ -25,8 +30,8 @@ export default function ExpenseDetail({
                 justifyContent: "space-between",
               }}
             >
-              <Typography fontWeight={'bold'}>{description}</Typography>
-              <Typography >SGD {amount}</Typography>
+              <Typography fontWeight={"bold"}>{description}</Typography>
+              <Typography>SGD {amount}</Typography>
             </Box>
             <Box
               sx={{
@@ -35,12 +40,13 @@ export default function ExpenseDetail({
               }}
             >
               <Typography variant="subtitle2">{date}</Typography>
-              <Typography variant="subtitle2">Overseas currency: $100 </Typography>
+              <Typography variant="subtitle2">
+                Overseas currency: $100{" "}
+              </Typography>
             </Box>
           </div>
         </Grid>
-        <Grid xs={1.5} display="flex" justifyContent="center" alignItems="center">{editLogo}</Grid>
       </Grid>
-    </>
+    </Card>
   );
 }

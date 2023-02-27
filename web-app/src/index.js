@@ -15,13 +15,16 @@ const theme = createTheme({
       'sans-serif',
     ].join(','),
     fontWeight: 510,
+    allVariants: {
+      color: '#01161e'
+    }
   },});
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Container maxWidth="sm" sx={{ bgcolor: "#cdc6c3", height: "100vh", paddingTop:5}}>
+      <Container maxWidth="md" sx={{ bgcolor: "#eff6e0", height: "100vh", paddingTop:5}}>
         <Stack spacing={4}>
           <Navbar />
           <Outlet />
