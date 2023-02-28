@@ -28,14 +28,15 @@ const getLatestExpenseId = (req, res) => {
 
 const getCurrentMonthTotalInSgd = async (req, res) => {
     const id = req.params.id
-    const date = new Date();
-    const year = date.getFullYear()
-    const month = date.getMonth() + 1
-
+    const currentDate = new Date()
+    const start = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
+    const end = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
     const monthExpenses = await Expense.find({
-        year: year,
-        month: month,
-        telegramId: id
+        telegramId: id,
+        date: {
+            $gte: start,
+            $lt: end
+        }
     })
 
     var total = 0
@@ -80,19 +81,15 @@ const getCurrentTripTotal = async (req, res) => {
 }
 
 const getYesterdayTotal = async (req, res) => {
-    const date = new Date();
-    date.setDate(date.getDate() - 1)
+    const currentDate = new Date();
 
-    const year = date.getFullYear()
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    
     const id = req.params.id
     const yesterdayExpenses = await Expense.find({
-        year: year,
-        month: month,
-        day: day,
-        telegramId: id
+        telegramId: id,
+        date: {
+            $gte: new Date(currentDate.getFullYear(), currentDate.getMonth(), new Date().getDate() - 1),
+            $lt: new Date(currentDate.getFullYear(), currentDate.getMonth(), new Date().getDate())
+        }
     })
 
     res.json(yesterdayExpenses)

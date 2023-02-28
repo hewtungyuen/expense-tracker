@@ -3,12 +3,7 @@ const state = require('../states/stateEnum')
 const { renderKeyboard } = require('./start')
 
 const saveExpenseToDatabase = async (ctx) => {
-    date = new Date()
-    const expense = {
-        "year" : date.getFullYear(),
-        "month" : date.getMonth() + 1,
-        "day" : date.getDate(),
-    }
+    const expense = {}
 
     const telegramId = ctx.message.chat.username
     const description = await api.get(`/users/${telegramId}/expenseDescription`).then(value => value.data)
