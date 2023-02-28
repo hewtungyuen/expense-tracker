@@ -104,25 +104,8 @@ const getYesterdayTotal = async (req, res) => {
 }
 
 const filterExpenses = async (req, res) => {
-    const date = new Date();
 
-    const filters = {
-        "telegramId": req.body.telegramId,
-        "year": date.getFullYear(),
-        "month": date.getMonth() + 1,
-    }
-
-    const year = req.body.year
-    const month = req.body.month
-    const expenseCategory = req.body.expenseCategory
-    const tripName = req.body.tripName
-
-    if (year) {filters.year = year}
-    if (month) {filters.month = month}
-    if (expenseCategory) {filters.expenseCategory = expenseCategory}
-    if (tripName) {filters.tripName = tripName}
-
-    const filteredExpenses = await Expense.find(filters)
+    const filteredExpenses = await Expense.find(req.body)
     res.json(filteredExpenses)
 }
 
