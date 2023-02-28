@@ -61,19 +61,14 @@ const getCurrentTripTotal = async (req, res) => {
     var total = 0
 
     tripExpenses.forEach((item, index) => {
-        
-        if (item.expenseAmountOverseas) {
-            const value = item.expenseAmountOverseas
-            const exchangeRate = item.exchangeRate
-            
-            amountInOverseasCurrency += value
-            total += value / exchangeRate
+        const amountOverseas = item.expenseAmountOverseas
+        const amountSgd = item.expenseAmountSgd
 
-        } else if (item.expenseAmountSgd) {
-            const value = item.expenseAmountSgd
-
-            amountInSgd += value
-            total += value
+        total += amountSgd
+        if (amountOverseas) {
+            amountInOverseasCurrency += amountOverseas
+        } else {
+            amountInSgd += amountSgd
         }
     })
     
