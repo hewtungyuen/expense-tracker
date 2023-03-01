@@ -68,7 +68,7 @@ const getMonthTotalSgd = async (req, res) => {
 const getTripTotal = async (req, res) => {
 
     const tripExpenses = await Expense.find({
-        telegramId:req.params.id,
+        telegramId: req.params.id,
         tripName: req.params.tripName
     })
 
@@ -93,6 +93,35 @@ const getTripTotal = async (req, res) => {
         overseasCurrency: amountInOverseasCurrency,
         total: total
     })
+}
+
+
+const totalGroupedByMonth = (req, res) => {
+    const id = req.params.id
+    Expense.aggregate([
+        {
+            $match: {
+                telegramId: id,
+                tripName: {$exists: false}
+            },
+        },
+        {
+            $group: {
+                _id: {year: { $year: "$date" }, month: { $month: "$date" }},
+                totalAmount: {$sum: "$expenseAmountSgd"},
+                date: {$min: "$date"}
+            },
+        },
+        {
+            $sort: {
+                "date": -1
+            }
+        }
+    ]).then(output => res.json(output))
+}
+
+const totalGroupByTrip = async (req, res) => {
+    
 }
 
 const getYesterdayTotal = async (req, res) => {
@@ -123,5 +152,6 @@ module.exports = {
     getMonthTotalSgd,
     getTripTotal,
     getYesterdayTotal,
-    filterExpenses
+    filterExpenses,
+    totalGroupedByMonth
 }
