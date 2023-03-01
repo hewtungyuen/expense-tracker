@@ -26,17 +26,33 @@ const getLatestExpenseId = (req, res) => {
     ))
 }
 
-const getCurrentMonthTotalInSgd = async (req, res) => {
+const getMonthTotalSgd = async (req, res) => {
     const id = req.params.id
-    const currentDate = new Date()
-    const start = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
-    const end = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+    const month = req.params.month
+    const year = req.params.year
+
     const monthExpenses = await Expense.find({
-        telegramId: id,
-        date: {
-            $gte: start,
-            $lt: end
-        }
+        telegramId:id, 
+        $expr: {
+            $and: [
+              {
+                "$eq": [
+                  {
+                    "$month": "$date"
+                  },
+                  month
+                ]
+              },
+              {
+                "$eq": [
+                  {
+                    "$year": "$date"
+                  },
+                  year
+                ]
+              },
+            ]
+          }
     })
 
     var total = 0
@@ -105,7 +121,7 @@ module.exports = {
     addExpense,
     deleteExpenseById,
     getLatestExpenseId,
-    getCurrentMonthTotalInSgd,
+    getMonthTotalSgd,
     getCurrentTripTotal,
     getYesterdayTotal,
     filterExpenses

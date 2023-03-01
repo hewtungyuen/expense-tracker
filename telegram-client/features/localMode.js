@@ -4,11 +4,13 @@ const { Markup } = require('telegraf')
 
 const displayMonthTotal = async (ctx) => {
     const date = new Date()
-    const month = date.toLocaleString('default', { month: 'long' });
+    const monthString = date.toLocaleString('default', { month: 'long' });
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
     const telegramId = ctx.message.chat.username
-    const monthTotal = await api.get(`/expenses/${telegramId}`)
+    const monthTotal = await api.get(`/expenses/${telegramId}/${year}/${month}`)
     await api.patch(`/users/${telegramId}`, {currentState: state.START})
-    ctx.reply(`Total expenses for ${month}: $${parseFloat(monthTotal.data).toFixed(2)}` , Markup.keyboard([
+    ctx.reply(`Total expenses for ${monthString}: $${parseFloat(monthTotal.data).toFixed(2)}` , Markup.keyboard([
         ['Add expense', 'Delete expense'],
         ['Overseas mode']
         ]).oneTime().resize()

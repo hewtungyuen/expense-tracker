@@ -4,7 +4,7 @@ const {
     addExpense,
     deleteExpenseById,
     getLatestExpenseId,
-    getCurrentMonthTotalInSgd,
+    getMonthTotalSgd,
     getCurrentTripTotal,
     getYesterdayTotal,
     filterExpenses
@@ -14,7 +14,7 @@ router.post("/", addExpense)
 router.delete("/:id", deleteExpenseById)
 router.get("/latest", getLatestExpenseId)
 router.get('/filterExpenses', filterExpenses)
-router.get("/:id", getCurrentMonthTotalInSgd)
+router.get("/:id/:year/:month", getMonthTotalSgd)
 router.get("/tripTotal/:id", getCurrentTripTotal)
 router.get("/yesterday/:id", getYesterdayTotal)
 
