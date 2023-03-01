@@ -18,11 +18,11 @@ const displayTripTotal = async (ctx) => {
 
     await api.patch(`/users/${telegramId}`, {currentState: state.START})
     
-    const tripName = await api.get(`/users/${telegramId}/tripName`)
-    const tripTotal = await api.get(`/expenses/tripTotal/${telegramId}`).then(value => value.data)
+    const tripName = await api.get(`/users/${telegramId}/tripName`).then(value => value.data)
+    const tripTotal = await api.get(`/expenses/tripTotal/${telegramId}/${tripName}`).then(value => value.data)
 
     ctx.reply(
-        `Total expenses for ${tripName.data}: 
+        `Total expenses for ${tripName}: 
         SGD: $${parseFloat(tripTotal.sgd).toFixed(2)}, 
         Overseas currency: $${parseFloat(tripTotal.overseasCurrency).toFixed(2)},
         Total: $${parseFloat(tripTotal.total).toFixed(2)} SGD`, Markup.keyboard([

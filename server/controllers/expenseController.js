@@ -65,12 +65,11 @@ const getMonthTotalSgd = async (req, res) => {
     res.json(total)
 }
 
-const getCurrentTripTotal = async (req, res) => {
-    const user = await User.findById(req.params.id)
-    const tripName = user.tripName
+const getTripTotal = async (req, res) => {
 
     const tripExpenses = await Expense.find({
-        tripName: tripName
+        telegramId:req.params.id,
+        tripName: req.params.tripName
     })
 
     var amountInSgd = 0
@@ -122,7 +121,7 @@ module.exports = {
     deleteExpenseById,
     getLatestExpenseId,
     getMonthTotalSgd,
-    getCurrentTripTotal,
+    getTripTotal,
     getYesterdayTotal,
     filterExpenses
 }

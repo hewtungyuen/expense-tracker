@@ -5,17 +5,18 @@ const {
     deleteExpenseById,
     getLatestExpenseId,
     getMonthTotalSgd,
-    getCurrentTripTotal,
+    getTripTotal,
     getYesterdayTotal,
     filterExpenses
 } = require("../controllers/expenseController")
 
 router.post("/", addExpense)
 router.delete("/:id", deleteExpenseById)
+
 router.get("/latest", getLatestExpenseId)
 router.get('/filterExpenses', filterExpenses)
-router.get("/:id/:year/:month", getMonthTotalSgd)
-router.get("/tripTotal/:id", getCurrentTripTotal)
+router.get("/tripTotal/:id/:tripName", getTripTotal)
 router.get("/yesterday/:id", getYesterdayTotal)
+router.get("/:id/:year/:month", getMonthTotalSgd)
 
 module.exports = router
