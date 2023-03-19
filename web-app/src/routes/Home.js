@@ -20,9 +20,10 @@ export default function Home({ trips }) {
   if (trips) {
     items = data.map((d) => (
       <ExpenseCard
-        key={d.totalAmount}
+        key={d._id.tripName}
         description={d._id.tripName}
         totalAmount={d.totalAmount}
+        overseas={true}
       />
     ));
   } else {
