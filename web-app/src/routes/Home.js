@@ -1,44 +1,37 @@
 import { Stack } from "@mui/material";
 import ExpenseCard from "../components/ExpenseCard";
+import useFetch from "../hooks/useFetch";
 
-const local = [
-  {
-    month: "Feb 2023",
-    total: "100",
-  },
-  {
-    month: "Jan 2023",
-    total: "100",
-  },
-  {
-    month: "Dec 2023",
-    total: "100",
-  },
-];
-
-const overseas = [
-  {
-    month: "Vietnam 2023",
-    total: "100",
-  },
-  {
-    month: "Taiwan 2022",
-    total: "100",
-  },
-  {
-    month: "Korea 2022",
-    total: "100",
-  },
-];
 export default function Home({ trips }) {
-  var items;
+  var type;
+
   if (trips) {
-    items = overseas.map((d) => (
-      <ExpenseCard description={d.month} totalAmount={d.total} />
+    type = "totalGroupedByTrip";
+  } else {
+    type = "totalGroupedByMonth";
+  }
+  const data = useFetch(`/expenses/${type}/tungyuen`);
+  var items;
+
+  if (!data) {
+    return "";
+  }
+
+  if (trips) {
+    items = data.map((d) => (
+      <ExpenseCard
+        key={d.totalAmount}
+        description={d._id.tripName}
+        totalAmount={d.totalAmount}
+      />
     ));
   } else {
-    items = local.map((d) => (
-      <ExpenseCard description={d.month} totalAmount={d.total} />
+    items = data.map((d) => (
+      <ExpenseCard
+        key={`${d._id.month + " / " + d._id.year}`}
+        description={d._id.month + " / " + d._id.year}
+        totalAmount={d.totalAmount}
+      />
     ));
   }
   return <Stack spacing={2}>{items}</Stack>;

@@ -15,10 +15,10 @@ export default function Navbar() {
         <Typography variant="h5" fontWeight={'bold'}>{name}</Typography>
       </Stack>
       <Breadcrumbs aria-label="breadcrumb">
-        <Link color={'black'} underline="" component={RouterLink} to="/">
+        <Link color={'black'} underline="hover" component={RouterLink} to="/">
           Home
         </Link>
-        <Link color={'black'} underline="" component={RouterLink} to="/trips">
+        <Link color={'black'} underline="hover" component={RouterLink} to="/trips">
           My Trips
         </Link>
       </Breadcrumbs>
