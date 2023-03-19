@@ -41,7 +41,7 @@ function CategoryIconSelector({ expenseCategory }) {
     case "Transport":
       return <TransportIcon />;
     default:
-      return <>{expenseCategory}</>
+      return <>{expenseCategory}</>;
   }
 }
 
@@ -67,7 +67,7 @@ export default function ExpenseDetails({
         justifyContent="space-between"
       >
         <Grid xs={1} display="flex" justifyContent="center" alignItems="center">
-          <CategoryIconSelector expenseCategory={expenseCategory}/>
+          <CategoryIconSelector expenseCategory={expenseCategory} />
         </Grid>
 
         <Grid xs={10.5}>

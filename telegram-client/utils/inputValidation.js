@@ -1,15 +1,15 @@
 const numberValidationDecorator = (func) => {
-    const inner = (ctx) => {
-        const userInput = ctx.message.text
-        const num = +userInput
+  const inner = (ctx) => {
+    const userInput = ctx.message.text;
+    const num = +userInput;
 
-        if (num) {
-            func(ctx)
-        } else {
-            ctx.reply('please input a valid number')
-        }
+    if (num) {
+      func(ctx);
+    } else {
+      ctx.reply("please input a valid number");
     }
-    return inner
-}
+  };
+  return inner;
+};
 
-module.exports = numberValidationDecorator
+module.exports = numberValidationDecorator;

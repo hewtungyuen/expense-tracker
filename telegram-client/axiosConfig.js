@@ -1,7 +1,7 @@
-const axios = require('axios')
+const axios = require("axios");
 
 const api = axios.create({
-    baseURL: "http://localhost:5000"
-})
+  baseURL: "http://localhost:5000",
+});
 
-module.exports = api
+module.exports = api;

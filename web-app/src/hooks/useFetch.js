@@ -5,7 +5,7 @@ const useFetch = (url) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    setData(null)
+    setData(null);
     api.get(url).then((result) => {
       const output = result.data;
       setData(output);

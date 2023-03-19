@@ -7,23 +7,22 @@ import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import Expenses from "./routes/Expenses";
 import { Stack } from "@mui/material";
 
-import { createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, ThemeProvider } from "@mui/material";
 const theme = createTheme({
   typography: {
-    fontFamily: [
-      'sans-serif',
-    ].join(','),
+    fontFamily: ["sans-serif"].join(","),
     fontWeight: 510,
     allVariants: {
-      color: '#01161e'
-    }
-  },});
+      color: "#01161e",
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Container maxWidth="md" sx={{ bgcolor: "#eff6e0", p:5}}>
+      <Container maxWidth="md" sx={{ bgcolor: "#eff6e0", p: 5 }}>
         <Stack spacing={4}>
           <Navbar />
           <Outlet />
