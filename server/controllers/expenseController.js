@@ -30,6 +30,7 @@ const getMonthTotalSgd = async (req, res) => {
 
   const monthExpenses = await Expense.find({
     telegramId: id,
+    tripName: {$exists: false},
     $expr: {
       $and: [
         {
