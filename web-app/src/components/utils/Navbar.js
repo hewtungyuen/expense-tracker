@@ -4,10 +4,13 @@ import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { Stack, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const name = "Tung Yuen";
 
 export default function Navbar() {
+  const routeParams = useParams();
+  const telegramId = routeParams.telegramId;
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Stack>
@@ -17,14 +20,19 @@ export default function Navbar() {
         </Typography>
       </Stack>
       <Breadcrumbs aria-label="breadcrumb">
-        <Link color={"black"} underline="hover" component={RouterLink} to="/">
+        <Link
+          color={"black"}
+          underline="hover"
+          component={RouterLink}
+          to={`/${telegramId}`}
+        >
           Home
         </Link>
         <Link
           color={"black"}
           underline="hover"
           component={RouterLink}
-          to="/trips"
+          to={`/${telegramId}/trips`}
         >
           My Trips
         </Link>

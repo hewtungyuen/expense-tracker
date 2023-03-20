@@ -8,6 +8,7 @@ import Expenses from "./routes/Expenses";
 import { Stack } from "@mui/material";
 
 import { createTheme, ThemeProvider } from "@mui/material";
+import Login from "./routes/Login";
 const theme = createTheme({
   typography: {
     fontFamily: ["sans-serif"].join(","),
@@ -22,25 +23,42 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Container maxWidth="md" sx={{ bgcolor: "#eff6e0", p: 5 }}>
-        <Stack spacing={4}>
-          <Navbar />
+      <Container
+        maxWidth={false}
+        sx={{ bgcolor: "#eff6e0", p: 5, minHeight: "100vh"}}
+      >
+        <Container maxWidth="md">
           <Outlet />
-        </Stack>
+        </Container>
       </Container>
     ),
     children: [
       {
-        path: "/",
-        element: <Home />,
+        path: "/login",
+        element: <Login />,
       },
       {
-        path: "/expenses?",
-        element: <Expenses />,
-      },
-      {
-        path: "/trips",
-        element: <Home trips={true} />,
+        path: "/:telegramId",
+        element: (
+          <Stack spacing={4}>
+            <Navbar />
+            <Outlet />
+          </Stack>
+        ),
+        children: [
+          {
+            path: "/:telegramId",
+            element: <Home />,
+          },
+          {
+            path: "/:telegramId/expenses?",
+            element: <Expenses />,
+          },
+          {
+            path: "/:telegramId/trips",
+            element: <Home trips={true} />,
+          },
+        ],
       },
     ],
   },

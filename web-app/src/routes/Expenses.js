@@ -3,12 +3,13 @@ import { Grid, Stack } from "@mui/material";
 import CategoryTotals from "../components/sections/CategoryTotals";
 import ExpenseList from "../components/sections/ExpenseList";
 import useFetch from "../hooks/useFetch";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
 
 export default function Expenses() {
   const [searchParams] = useSearchParams();
+  const routeParams = useParams();
+  const telegramId = routeParams.telegramId;
   const overseas = searchParams.get("overseas");
-  const telegramId = "tungyuen";
   let url;
 
   if (overseas === "true") {
@@ -24,7 +25,7 @@ export default function Expenses() {
   const data = useFetch(url);
 
   if (!data) {
-    return "loading";
+    return "";
   }
   console.log(data.categoryTotals)
   return (

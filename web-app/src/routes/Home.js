@@ -1,8 +1,11 @@
 import { Stack } from "@mui/material";
 import ExpenseCard from "../components/ExpenseCard";
 import useFetch from "../hooks/useFetch";
+import { useParams } from "react-router-dom";
 
 export default function Home({ trips }) {
+  const routeParams = useParams();
+  const telegramId = routeParams.telegramId;
   var type;
 
   if (trips) {
@@ -10,7 +13,7 @@ export default function Home({ trips }) {
   } else {
     type = "totalGroupedByMonth";
   }
-  const data = useFetch(`/expenses/${type}/tungyuen`);
+  const data = useFetch(`/expenses/${type}/${telegramId}`);
   var items;
 
   if (!data) {
