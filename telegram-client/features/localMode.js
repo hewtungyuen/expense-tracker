@@ -8,7 +8,7 @@ const displayMonthTotal = async (ctx) => {
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const telegramId = ctx.message.chat.username;
-  const monthTotal = await api.get(`/expenses/${telegramId}/${year}/${month}`).then(res => res.data.total);
+  const monthTotal = await api.get(`/expenses/${telegramId}/${year}/${month}`).then(res => res.data.sgd);
   await api.patch(`/users/${telegramId}`, { currentState: state.START });
   ctx.reply(
     `Total expenses for ${monthString}: $${parseFloat(monthTotal).toFixed(
