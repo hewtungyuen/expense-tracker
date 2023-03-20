@@ -59,14 +59,14 @@ const getMonthTotalSgd = async (req, res) => {
     }
   });
 
-  res.json({ total: total, monthExpenses: monthExpenses });
+  res.json({ sgd: total, expensesList: monthExpenses });
 };
 
 const getTripTotal = async (req, res) => {
   const tripExpenses = await Expense.find({
     telegramId: req.params.id,
     tripName: req.params.tripName,
-  });
+  }).sort({date: -1});
 
   var amountInSgd = 0;
   var amountInOverseasCurrency = 0;
@@ -88,6 +88,7 @@ const getTripTotal = async (req, res) => {
     sgd: amountInSgd,
     overseasCurrency: amountInOverseasCurrency,
     total: total,
+    expensesList: tripExpenses
   });
 };
 

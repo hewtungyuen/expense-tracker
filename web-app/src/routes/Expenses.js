@@ -7,35 +7,30 @@ import { useSearchParams } from "react-router-dom";
 
 export default function Expenses() {
   const [searchParams] = useSearchParams();
-  const overseas = true;
+  const overseas = searchParams.get("overseas");
   const telegramId = "tungyuen";
-  let dataUrl;
-  let totalsUrl;
+  let url;
 
-  if (overseas) {
+  if (overseas === "true") {
     const tripName = searchParams.get("tripName");
-
-    dataUrl = `expenses/tripExpenses/${telegramId}/${tripName}`;
-    totalsUrl = `expenses/tripTotal/${telegramId}/${tripName}`;
+    url = `expenses/tripTotal/${telegramId}/${tripName}`;
   } else {
     const month = searchParams.get("month");
     const year = searchParams.get("year");
 
-    dataUrl = `${telegramId}/${year}/${month}`;
-    totalsUrl = `${telegramId}/${year}/${month}`;
+    url = `expenses/${telegramId}/${year}/${month}`;
   }
 
-  const data = useFetch(dataUrl);
-  const totals = useFetch(totalsUrl);
+  const data = useFetch(url);
 
-  if (!totals) {
+  if (!data) {
     return "loading";
   }
   return (
     <Stack spacing={4}>
       <ExpenseTotals
-        totalOverseas={totals.overseasCurrency.toFixed(2)}
-        totalSgd={totals.sgd.toFixed(2)}
+        totalOverseas={data.overseasCurrency}
+        totalSgd={data.sgd}
       />
       <Grid
         container
@@ -46,7 +41,7 @@ export default function Expenses() {
           <CategoryTotals />
         </Grid>
         <Grid xs={12} sm={8}>
-          <ExpenseList data={data} />
+          <ExpenseList data={data.expensesList} />
         </Grid>
       </Grid>
     </Stack>

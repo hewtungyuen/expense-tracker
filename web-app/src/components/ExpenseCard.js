@@ -9,11 +9,11 @@ import { Link as RouterLink } from "react-router-dom";
 export default function ExpenseCard({ description, totalAmount, overseas }) {
   let link;
   if (overseas) {
-    link = `/expenses?tripName=${description}`;
+    link = `/expenses?overseas=true&tripName=${description}`;
   } else {
-    const year = "";
-    const month = "";
-    link = `/expenses?year=${year}&month=${month}`;
+    const year = description.split("/")[1].trim();
+    const month = description.split("/")[0].trim();
+    link = `/expenses?overseas=false&year=${year}&month=${month}`;
   }
   return (
     <Card>
