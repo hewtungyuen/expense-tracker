@@ -6,8 +6,6 @@ import { Stack, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-const name = "Tung Yuen";
-
 export default function Navbar() {
   const routeParams = useParams();
   const telegramId = routeParams.telegramId;
@@ -16,7 +14,7 @@ export default function Navbar() {
       <Stack>
         <Typography>Hello, </Typography>
         <Typography variant="h5" fontWeight={"bold"}>
-          {name}
+          @{telegramId}
         </Typography>
       </Stack>
       <Breadcrumbs aria-label="breadcrumb">
