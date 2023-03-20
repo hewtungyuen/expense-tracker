@@ -50,7 +50,7 @@ const getMonthTotalSgd = async (req, res) => {
         },
       ],
     },
-  });
+  }).sort({date: -1});
 
   var total = 0;
   monthExpenses.forEach((item, index) => {
@@ -59,7 +59,7 @@ const getMonthTotalSgd = async (req, res) => {
     }
   });
 
-  res.json(total);
+  res.json({ total: total, monthExpenses: monthExpenses });
 };
 
 const getTripTotal = async (req, res) => {

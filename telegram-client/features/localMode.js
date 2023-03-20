@@ -8,10 +8,10 @@ const displayMonthTotal = async (ctx) => {
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const telegramId = ctx.message.chat.username;
-  const monthTotal = await api.get(`/expenses/${telegramId}/${year}/${month}`);
+  const monthTotal = await api.get(`/expenses/${telegramId}/${year}/${month}`).then(res => res.data.total);
   await api.patch(`/users/${telegramId}`, { currentState: state.START });
   ctx.reply(
-    `Total expenses for ${monthString}: $${parseFloat(monthTotal.data).toFixed(
+    `Total expenses for ${monthString}: $${parseFloat(monthTotal).toFixed(
       2
     )}`,
     Markup.keyboard([["Add expense", "Delete expense"], ["Overseas mode"]])
