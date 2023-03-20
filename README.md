@@ -3,6 +3,11 @@
 Web application integrated with Telegram bot which enables tracking of personal expenses. 
 Telegram bot used to easily track expenses on the go, while web app used to view past expenses in greater detail. 
 
+## Tech stack
+* Frontend: React, MaterialUI
+* Backend: MongoDB, Express, NodeJS
+* Telegram client: TelegrafJS
+
 ## Key features
 
 #### Telegram client
@@ -22,7 +27,4 @@ Telegram bot used to easily track expenses on the go, while web app used to view
 * View statistics (amount spent in SGD, amount spent in overseas currency, amount spent for each category)
 * View all transactions for each month / overseas trip
 
-## Tech stack
-Frontend: React, MaterialUI
-Backend: MongoDB, Express, NodeJS
-Telegram client: TelegrafJS
+
