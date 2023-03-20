@@ -30,7 +30,7 @@ const getMonthTotalSgd = async (req, res) => {
 
   const monthExpenses = await Expense.find({
     telegramId: id,
-    tripName: {$exists: false},
+    tripName: { $exists: false },
     $expr: {
       $and: [
         {
@@ -51,28 +51,55 @@ const getMonthTotalSgd = async (req, res) => {
         },
       ],
     },
-  }).sort({date: -1});
+  }).sort({ date: -1 });
 
   var total = 0;
+  var categoryTotals = {
+    foodAmount: 0,
+    leisureAmount: 0,
+    shoppingAmount: 0,
+    transportAmount: 0,
+  };
+
   monthExpenses.forEach((item, index) => {
-    if (!item.tripName) {
-      total += item.expenseAmountSgd;
+    const expenseAmount = item.expenseAmountSgd;
+    total += expenseAmount;
+    const category = item.expenseCategory;
+    switch (category) {
+      case "Food":
+        categoryTotals.foodAmount += expenseAmount;
+      case "Transport":
+        categoryTotals.transportAmount += expenseAmount;
+      case "Leisure":
+        categoryTotals.leisureAmount += expenseAmount;
+      case "Shopping":
+        categoryTotals.shoppingAmount += expenseAmount;
     }
   });
 
-  res.json({ sgd: total, expensesList: monthExpenses });
+  res.json({
+    sgd: total,
+    expensesList: monthExpenses,
+    categoryTotals: categoryTotals,
+  });
 };
 
 const getTripTotal = async (req, res) => {
   const tripExpenses = await Expense.find({
     telegramId: req.params.id,
     tripName: req.params.tripName,
-  }).sort({date: -1});
+  }).sort({ date: -1 });
 
   var amountInSgd = 0;
   var amountInOverseasCurrency = 0;
   var total = 0;
-
+  var categoryTotals = {
+    foodAmount: 0,
+    leisureAmount: 0,
+    shoppingAmount: 0,
+    transportAmount: 0,
+  };
+  
   tripExpenses.forEach((item, index) => {
     const amountOverseas = item.expenseAmountOverseas;
     const amountSgd = item.expenseAmountSgd;
@@ -83,13 +110,26 @@ const getTripTotal = async (req, res) => {
     } else {
       amountInSgd += amountSgd;
     }
+
+    const category = item.expenseCategory;
+    switch (category) {
+      case "Food":
+        categoryTotals.foodAmount += amountSgd;
+      case "Transport":
+        categoryTotals.transportAmount += amountSgd;
+      case "Leisure":
+        categoryTotals.leisureAmount += amountSgd;
+      case "Shopping":
+        categoryTotals.shoppingAmount += amountSgd;
+    }
   });
 
   res.json({
     sgd: amountInSgd,
     overseasCurrency: amountInOverseasCurrency,
     total: total,
-    expensesList: tripExpenses
+    expensesList: tripExpenses,
+    categoryTotals: categoryTotals,
   });
 };
 

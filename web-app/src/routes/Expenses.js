@@ -26,6 +26,7 @@ export default function Expenses() {
   if (!data) {
     return "loading";
   }
+  console.log(data.categoryTotals)
   return (
     <Stack spacing={4}>
       <ExpenseTotals
@@ -38,7 +39,7 @@ export default function Expenses() {
         justifyContent="space-between"
       >
         <Grid xs={12} sm={3}>
-          <CategoryTotals />
+          <CategoryTotals props={data.categoryTotals}/>
         </Grid>
         <Grid xs={12} sm={8}>
           <ExpenseList data={data.expensesList} />
