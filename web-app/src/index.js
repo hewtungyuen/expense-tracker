@@ -7,7 +7,7 @@ import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import Expenses from "./routes/Expenses";
 import { Stack } from "@mui/material";
 
-import { createTheme, ThemeProvider } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Login from "./routes/Login";
 const theme = createTheme({
   typography: {
@@ -17,20 +17,25 @@ const theme = createTheme({
       color: "#01161e",
     },
   },
+  palette: {
+    background: { main: "#f0f2f6" },
+  },
 });
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Container
-        maxWidth={false}
-        sx={{ bgcolor: "#eff6e0", p: 5, minHeight: "100vh"}}
-      >
-        <Container maxWidth="md">
-          <Outlet />
+      <ThemeProvider theme={theme}>
+        <Container
+          maxWidth={false}
+          sx={{ bgcolor: "background.main", p: 5, minHeight: "100vh" }}
+        >
+          <Container maxWidth="md">
+            <Outlet />
+          </Container>
         </Container>
-      </Container>
+      </ThemeProvider>
     ),
     children: [
       {
@@ -64,8 +69,4 @@ const router = createBrowserRouter([
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <ThemeProvider theme={theme}>
-    <RouterProvider router={router} />
-  </ThemeProvider>
-);
+root.render(<RouterProvider router={router} />);

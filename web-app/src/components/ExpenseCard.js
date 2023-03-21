@@ -23,7 +23,7 @@ export default function ExpenseCard({ description, totalAmount, overseas }) {
       <CardActionArea component={RouterLink} to={link}>
         <CardContent>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography>{description}</Typography>
+            <Typography fontWeight={"bold"}>{description}</Typography>
             <Typography>${totalAmount}</Typography>
           </Box>
         </CardContent>

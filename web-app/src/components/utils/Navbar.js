@@ -10,10 +10,15 @@ export default function Navbar() {
   const routeParams = useParams();
   const telegramId = routeParams.telegramId;
   return (
-    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+      }}
+    >
       <Stack>
         <Typography>Hello, </Typography>
-        <Typography variant="h5" fontWeight={"bold"}>
+        <Typography variant="h5" fontWeight={"bold"} color={"#2f94fe"}>
           @{telegramId}
         </Typography>
       </Stack>

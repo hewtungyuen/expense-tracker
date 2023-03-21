@@ -10,7 +10,7 @@ function DescriptionAndDate({ date, tripName }) {
   if (tripName) {
     return (
       <Typography variant="subtitle2">
-        {date} | {tripName}
+        {date}
       </Typography>
     );
   }
@@ -54,11 +54,7 @@ export default function ExpenseDetails({
   expenseAmountOverseas,
 }) {
   return (
-    <Card
-      sx={{
-        bgcolor: "#aec3b0",
-      }}
-    >
+    <Card>
       <Grid
         container
         sx={{
