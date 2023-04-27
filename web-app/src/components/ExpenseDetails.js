@@ -65,6 +65,7 @@ export default function ExpenseDetails({ expenseDetails }) {
           justifyContent="space-between"
         >
           <Grid
+            item
             xs={1}
             display="flex"
             justifyContent="center"
@@ -75,7 +76,7 @@ export default function ExpenseDetails({ expenseDetails }) {
             />
           </Grid>
 
-          <Grid xs={10.5}>
+          <Grid item xs={10.5}>
             <Stack direction={"row"} justifyContent="space-between">
               <Stack>
                 <Typography fontWeight={"bold"}>

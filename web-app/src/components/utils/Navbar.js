@@ -44,10 +44,10 @@ export default function Navbar() {
   const telegramId = routeParams.telegramId;
   return (
     <Grid container justifyContent="space-between">
-      <Grid Greeting sm={8}>
+      <Grid item sm={8}>
         <Greeting telegramId={telegramId} />
       </Grid>
-      <Grid Navigation sm={2}>
+      <Grid item sm={2}>
         <Navigation telegramId={telegramId} />
       </Grid>
     </Grid>

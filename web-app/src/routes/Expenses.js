@@ -39,10 +39,10 @@ export default function Expenses() {
         direction={{ sm: "row-reverse" }}
         justifyContent="space-between"
       >
-        <Grid CategoryTotals xs={12} sm={2}>
+        <Grid item xs={12} sm={2}>
           <CategoryTotals props={data.categoryTotals}/>
         </Grid>
-        <Grid ExpenseList xs={12} sm={8}>
+        <Grid item xs={12} sm={8}>
           <ExpenseList data={data.expensesList} />
         </Grid>
       </Grid>

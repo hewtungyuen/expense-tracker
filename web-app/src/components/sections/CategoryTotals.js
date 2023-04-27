@@ -20,14 +20,14 @@ export default function CategoryTotals({ props }) {
       </Typography>
 
       <Grid container>
-        <Grid xs={6} sm={12}>
+        <Grid item xs={6} sm={12}>
           <CategoryTotal
             logo={<FoodIcon />}
             category={"Food"}
             amount={foodAmount}
           />
         </Grid>
-        <Grid xs={6} sm={12}>
+        <Grid item xs={6} sm={12}>
           <CategoryTotal
             logo={<LeisureIcon />}
             category={"Leisure"}
@@ -35,7 +35,7 @@ export default function CategoryTotals({ props }) {
           />
         </Grid>
 
-        <Grid xs={6} sm={12}>
+        <Grid item xs={6} sm={12}>
           <CategoryTotal
             logo={<ShoppingIcon />}
             category={"Shopping"}
@@ -43,7 +43,7 @@ export default function CategoryTotals({ props }) {
           />
         </Grid>
 
-        <Grid xs={6} sm={12}>
+        <Grid item xs={6} sm={12}>
           <CategoryTotal
             logo={<TransportIcon />}
             category={"Transport"}

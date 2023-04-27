@@ -17,6 +17,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import React from "react";
 import dayjs from "dayjs";
+import api from "../axiosConfig";
 
 export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
   const [formData, setFormData] = React.useState({
@@ -34,13 +35,12 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
       ...prevFormData,
       [name]: value,
     }));
-    console.log(formData);
   };
 
-  const handleClose = () => {
-    console.log("here");
-    console.log(formData);
+  const handleClose = async () => {
     closeDialog();
+    console.log('here')
+    await api.post(`expenses/${expenseDetails.id}`, formData);
     setFormData({
       expenseCategory: expenseDetails.expenseCategory,
       expenseDescription: expenseDetails.expenseDescription,
