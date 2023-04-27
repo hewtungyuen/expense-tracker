@@ -8,17 +8,7 @@ export default function ExpenseList({ data }) {
   if (!data) {
     items = [];
   } else {
-    items = data.map((d) => (
-      <ExpenseDetails
-        key={d._id}
-        expenseCategory={d.expenseCategory}
-        expenseDescription={d.expenseDescription}
-        date={new Date(d.date).toISOString().split("T")[0]}
-        expenseAmountSgd={d.expenseAmountSgd}
-        expenseAmountOverseas={d.expenseAmountOverseas}
-        tripName={d.tripName}
-      />
-    ));
+    items = data.map((d) => <ExpenseDetails key={d._id} expenseDetails={d} />);
   }
 
   return (

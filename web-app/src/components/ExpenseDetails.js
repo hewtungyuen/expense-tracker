@@ -5,14 +5,12 @@ import {
   ShoppingIcon,
   TransportIcon,
 } from "./utils/Icons";
+import React from "react";
+import ExpenseDialog from "./ExpenseDialog";
 
 function DescriptionAndDate({ date, tripName }) {
   if (tripName) {
-    return (
-      <Typography variant="subtitle2">
-        {date}
-      </Typography>
-    );
+    return <Typography variant="subtitle2">{date}</Typography>;
   }
   return <Typography variant="subtitle2">{date}</Typography>;
 }
@@ -45,40 +43,64 @@ function CategoryIconSelector({ expenseCategory }) {
   }
 }
 
-export default function ExpenseDetails({
-  expenseCategory,
-  expenseDescription,
-  expenseAmountSgd,
-  date,
-  tripName,
-  expenseAmountOverseas,
-}) {
-  return (
-    <Card>
-      <Grid
-        container
-        sx={{
-          padding: 2,
-        }}
-        justifyContent="space-between"
-      >
-        <Grid xs={1} display="flex" justifyContent="center" alignItems="center">
-          <CategoryIconSelector expenseCategory={expenseCategory} />
-        </Grid>
+export default function ExpenseDetails({ expenseDetails }) {
+  const [open, setOpen] = React.useState(false);
 
-        <Grid xs={10.5}>
-          <Stack direction={"row"} justifyContent="space-between">
-            <Stack>
-              <Typography fontWeight={"bold"}>{expenseDescription}</Typography>
-              <DescriptionAndDate date={date} tripName={tripName} />
-            </Stack>
-            <ExpenseAmount
-              expenseAmountOverseas={expenseAmountOverseas}
-              expenseAmountSgd={expenseAmountSgd}
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const closeDialog = () => {
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <Card onClick={handleClickOpen}>
+        <Grid
+          container
+          sx={{
+            padding: 2,
+          }}
+          justifyContent="space-between"
+        >
+          <Grid
+            xs={1}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <CategoryIconSelector
+              expenseCategory={expenseDetails.expenseCategory}
             />
-          </Stack>
+          </Grid>
+
+          <Grid xs={10.5}>
+            <Stack direction={"row"} justifyContent="space-between">
+              <Stack>
+                <Typography fontWeight={"bold"}>
+                  {expenseDetails.expenseDescription}
+                </Typography>
+                <DescriptionAndDate
+                  date={
+                    new Date(expenseDetails.date).toISOString().split("T")[0]
+                  }
+                  tripName={expenseDetails.tripName}
+                />
+              </Stack>
+              <ExpenseAmount
+                expenseAmountOverseas={expenseDetails.expenseAmountOverseas}
+                expenseAmountSgd={expenseDetails.expenseAmountSgd}
+              />
+            </Stack>
+          </Grid>
         </Grid>
-      </Grid>
-    </Card>
+      </Card>
+      <ExpenseDialog
+        open={open}
+        closeDialog={closeDialog}
+        expenseDetails={expenseDetails}
+      />
+    </>
   );
 }
