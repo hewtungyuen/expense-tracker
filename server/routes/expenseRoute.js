@@ -11,9 +11,11 @@ const {
   totalGroupedByMonth,
   totalGroupedByTrip,
   getTripExpenses,
+  updateExpense,
 } = require("../controllers/expenseController");
 
 router.post("/", addExpense);
+router.post("/:id", updateExpense);
 router.delete("/:id", deleteExpenseById);
 
 router.get("/latest", getLatestExpenseId);

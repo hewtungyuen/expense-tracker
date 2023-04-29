@@ -68,15 +68,21 @@ const getMonthTotalSgd = async (req, res) => {
     switch (category) {
       case "Food":
         categoryTotals.foodAmount += expenseAmount;
+        break;
+
       case "Transport":
         categoryTotals.transportAmount += expenseAmount;
+        break;
+
       case "Leisure":
         categoryTotals.leisureAmount += expenseAmount;
+        break;
+
       case "Shopping":
         categoryTotals.shoppingAmount += expenseAmount;
+        break;
     }
   });
-
   res.json({
     sgd: total,
     expensesList: monthExpenses,
@@ -99,7 +105,7 @@ const getTripTotal = async (req, res) => {
     shoppingAmount: 0,
     transportAmount: 0,
   };
-  
+
   tripExpenses.forEach((item, index) => {
     const amountOverseas = item.expenseAmountOverseas;
     const amountSgd = item.expenseAmountSgd;
@@ -218,6 +224,13 @@ const getTripExpenses = async (req, res) => {
   res.json(result);
 };
 
+const updateExpense = async (req, res) => {
+  const result = await Expense.findByIdAndUpdate(req.params.id, {
+    $set: req.body,
+  });
+  res.json(result);
+};
+
 module.exports = {
   addExpense,
   deleteExpenseById,
@@ -229,4 +242,5 @@ module.exports = {
   totalGroupedByMonth,
   totalGroupedByTrip,
   getTripExpenses,
+  updateExpense,
 };

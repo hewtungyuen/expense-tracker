@@ -15,11 +15,14 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import React from "react";
+import React, { useContext } from "react";
 import dayjs from "dayjs";
 import api from "../axiosConfig";
+import MyContext from "./utils/reactContext";
 
 export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
+  const { reRender } = useContext(MyContext);
+
   const [formData, setFormData] = React.useState({
     expenseCategory: expenseDetails.expenseCategory,
     expenseDescription: expenseDetails.expenseDescription,
@@ -38,9 +41,9 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
   };
 
   const handleClose = async () => {
-    closeDialog();
-    console.log('here')
-    await api.post(`expenses/${expenseDetails.id}`, formData);
+    const res = await api
+      .post(`expenses/${expenseDetails._id}`, formData)
+      .then((x) => x.data);
     setFormData({
       expenseCategory: expenseDetails.expenseCategory,
       expenseDescription: expenseDetails.expenseDescription,
@@ -49,6 +52,8 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
       expenseAmountOverseas: expenseDetails.expenseAmountOverseas,
       expenseAmountSgd: expenseDetails.expenseAmountSgd,
     });
+    closeDialog();
+    reRender();
   };
 
   return (

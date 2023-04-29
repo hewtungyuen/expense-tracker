@@ -4,8 +4,16 @@ import CategoryTotals from "../components/sections/CategoryTotals";
 import ExpenseList from "../components/sections/ExpenseList";
 import useFetch from "../hooks/useFetch";
 import { useSearchParams, useParams } from "react-router-dom";
+import { useState } from "react";
+import MyContext from "../components/utils/reactContext";
 
 export default function Expenses() {
+  const [state, setState] = useState({});
+
+  function reRender() {
+    setState({});
+  }
+
   const [searchParams] = useSearchParams();
   const routeParams = useParams();
   const telegramId = routeParams.telegramId;
@@ -22,30 +30,34 @@ export default function Expenses() {
     url = `expenses/${telegramId}/${year}/${month}`;
   }
 
-  const data = useFetch(url);
+  const { data, loading } = useFetch(url);
 
-  if (!data) {
-    return "";
-  }
-  console.log(data.categoryTotals)
   return (
-    <Stack spacing={4}>
-      <ExpenseTotals
-        totalOverseas={data.overseasCurrency}
-        totalSgd={data.sgd}
-      />
-      <Grid
-        container
-        direction={{ sm: "row-reverse" }}
-        justifyContent="space-between"
-      >
-        <Grid item xs={12} sm={2}>
-          <CategoryTotals props={data.categoryTotals}/>
-        </Grid>
-        <Grid item xs={12} sm={8}>
-          <ExpenseList data={data.expensesList} />
-        </Grid>
-      </Grid>
-    </Stack>
+    <>
+      {loading ? (
+        <>loading</>
+      ) : (
+        <MyContext.Provider value={{ reRender }}>
+          <Stack spacing={4}>
+            <ExpenseTotals
+              totalOverseas={data.overseasCurrency}
+              totalSgd={data.sgd}
+            />
+            <Grid
+              container
+              direction={{ sm: "row-reverse" }}
+              justifyContent="space-between"
+            >
+              <Grid item xs={12} sm={2}>
+                <CategoryTotals props={data.categoryTotals} />
+              </Grid>
+              <Grid item xs={12} sm={8}>
+                <ExpenseList data={data.expensesList} />
+              </Grid>
+            </Grid>
+          </Stack>
+        </MyContext.Provider>
+      )}
+    </>
   );
 }

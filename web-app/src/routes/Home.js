@@ -13,7 +13,7 @@ export default function Home({ trips }) {
   } else {
     type = "totalGroupedByMonth";
   }
-  const data = useFetch(`/expenses/${type}/${telegramId}`);
+  const { data, loading } = useFetch(`/expenses/${type}/${telegramId}`);
   var items;
 
   if (!data) {
