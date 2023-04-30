@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const now = Date.now();
+const timezoneOffset = new Date().getTimezoneOffset() * 60000; // convert to milliseconds
+const localTimestamp = now - timezoneOffset;
+
 const expenseSchema = new Schema({
   telegramId: {
     type: String,
@@ -8,7 +12,7 @@ const expenseSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now(),
+    default: localTimestamp,
   },
   expenseDescription: {
     type: String,
