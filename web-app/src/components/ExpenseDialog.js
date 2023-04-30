@@ -88,10 +88,10 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
             <DemoContainer components={["DatePicker"]}>
               <DatePicker
                 label="Date"
-                defaultValue={dayjs(expenseDetails.date)}
+                defaultValue={dayjs(expenseDetails.date).subtract(1, 'day')}
                 onChange={(newValue) =>
                   handleInputChange({
-                    target: { name: "date", value: newValue },
+                    target: { name: "date", value: newValue.add(1, 'day') },
                   })
                 }
               />
