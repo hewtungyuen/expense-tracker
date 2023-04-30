@@ -8,10 +8,10 @@ import { useState } from "react";
 import MyContext from "../components/utils/reactContext";
 
 export default function Expenses() {
-  const [state, setState] = useState({});
+  const [refresh, setRefresh] = useState(false);
 
   function reRender() {
-    setState({});
+    setRefresh(!refresh);
   }
 
   const [searchParams] = useSearchParams();
@@ -30,7 +30,7 @@ export default function Expenses() {
     url = `expenses/${telegramId}/${year}/${month}`;
   }
 
-  const { data, loading } = useFetch(url);
+  const { data, loading } = useFetch(url, refresh);
 
   return (
     <>

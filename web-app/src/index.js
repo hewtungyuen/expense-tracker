@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Navbar from "./components/utils/Navbar";
 import Home from "./routes/Home";
@@ -57,7 +57,11 @@ const router = createBrowserRouter([
           },
           {
             path: "/:telegramId/expenses?",
-            element: <Expenses />,
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <Expenses />
+              </Suspense>
+            ),
           },
           {
             path: "/:telegramId/trips",

@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import api from "../axiosConfig";
 
-const useFetch = (url) => {
+const useFetch = (url, refresh = false) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    setData(null);
-    api.get(url).then((result) => {
-      const output = result.data;
-      setData(output);
+    const fetchData = async () => {
+      setLoading(true);
+      setData(null);
+      const result = await api.get(url);
+      setData(result.data);
       setLoading(false);
-    });
-  }, [url]);
+    };
 
+    fetchData();
+  }, [url, refresh]);
   return { data, loading };
 };
 
