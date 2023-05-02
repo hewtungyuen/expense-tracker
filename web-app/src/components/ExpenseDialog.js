@@ -117,6 +117,7 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
                 <MenuItem value={"Leisure"}>Leisure</MenuItem>
                 <MenuItem value={"Transport"}>Transport</MenuItem>
                 <MenuItem value={"Shopping"}>Shopping</MenuItem>
+                <MenuItem value={"Others"}>Others</MenuItem>
               </Select>
             </FormControl>
             <LocalizationProvider dateAdapter={AdapterDayjs}>

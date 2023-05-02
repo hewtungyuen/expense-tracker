@@ -2,6 +2,7 @@ import { Stack, Card, Grid, Typography } from "@mui/material";
 import {
   FoodIcon,
   LeisureIcon,
+  OthersIcon,
   ShoppingIcon,
   TransportIcon,
 } from "../utils/Icons";
@@ -20,7 +21,9 @@ function ExpenseAmount({ expenseAmountOverseas, expenseAmountSgd }) {
     return (
       <Stack alignitems="flex-end">
         <Typography>$ {expenseAmountOverseas}</Typography>
-        <Typography variant="subtitle2">= SGD {expenseAmountSgd.toFixed(2)}</Typography>
+        <Typography variant="subtitle2">
+          = SGD {expenseAmountSgd.toFixed(2)}
+        </Typography>
       </Stack>
     );
   }
@@ -38,6 +41,8 @@ function CategoryIconSelector({ expenseCategory }) {
       return <FoodIcon />;
     case "Transport":
       return <TransportIcon />;
+    case "Others":
+      return <OthersIcon />;
     default:
       return <>{expenseCategory}</>;
   }

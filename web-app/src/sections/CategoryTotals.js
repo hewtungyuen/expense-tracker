@@ -3,6 +3,7 @@ import { Stack, Typography, Grid } from "@mui/material";
 import {
   FoodIcon,
   LeisureIcon,
+  OthersIcon,
   ShoppingIcon,
   TransportIcon,
 } from "../utils/Icons";
@@ -12,6 +13,7 @@ export default function CategoryTotals({ props }) {
   const leisureAmount = props.leisureAmount.toFixed(2);
   const shoppingAmount = props.shoppingAmount.toFixed(2);
   const transportAmount = props.transportAmount.toFixed(2);
+  const othersAmount = props.othersAmount.toFixed(2);
 
   return (
     <Stack spacing={1}>
@@ -48,6 +50,13 @@ export default function CategoryTotals({ props }) {
             logo={<TransportIcon />}
             category={"Transport"}
             amount={transportAmount}
+          />
+        </Grid>
+        <Grid item xs={6} sm={12}>
+          <CategoryTotal
+            logo={<OthersIcon />}
+            category={"Others"}
+            amount={othersAmount}
           />
         </Grid>
       </Grid>

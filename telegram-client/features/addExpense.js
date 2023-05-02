@@ -86,6 +86,7 @@ const enterDescription = async (ctx) => {
     Markup.keyboard([
       ["Food", "Leisure"],
       ["Shopping", "Transport"],
+      ["Others"],
     ])
       .oneTime()
       .resize()

@@ -3,7 +3,7 @@ const Expense = require("./models/expenseModel");
 const axios = require("axios");
 
 const ids = ["tungyuen"];
-const categories = ["Food", "Leisure", "Transport", "Shopping"];
+const categories = ["Food", "Leisure", "Transport", "Shopping", "Others"];
 
 const trips = [
   ["Vietnam", 17100],

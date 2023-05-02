@@ -59,6 +59,7 @@ const getMonthTotalSgd = async (req, res) => {
     leisureAmount: 0,
     shoppingAmount: 0,
     transportAmount: 0,
+    othersAmount: 0,
   };
 
   monthExpenses.forEach((item, index) => {
@@ -80,6 +81,9 @@ const getMonthTotalSgd = async (req, res) => {
 
       case "Shopping":
         categoryTotals.shoppingAmount += expenseAmount;
+        break;
+      case "Others":
+        categoryTotals.othersAmount += expenseAmount;
         break;
     }
   });
@@ -104,6 +108,7 @@ const getTripTotal = async (req, res) => {
     leisureAmount: 0,
     shoppingAmount: 0,
     transportAmount: 0,
+    othersAmount: 0,
   };
 
   tripExpenses.forEach((item, index) => {
@@ -130,6 +135,9 @@ const getTripTotal = async (req, res) => {
         break;
       case "Shopping":
         categoryTotals.shoppingAmount += amountSgd;
+        break;
+      case "Others":
+        categoryTotals.othersAmount += amountSgd;
         break;
     }
   });
