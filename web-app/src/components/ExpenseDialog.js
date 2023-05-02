@@ -10,10 +10,6 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormLabel,
 } from "@mui/material";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -24,52 +20,8 @@ import dayjs from "dayjs";
 import api from "../utils/axiosConfig";
 import MyContext from "../utils/reactContext";
 import ConfirmationDialog from "./ConfirmationDialog";
+import ExpenseDialogAmountField from "./ExpenseDialogAmountField";
 
-function ExpenseAmount({ expenseDetails, handleInputChange }) {
-  const [value, setValue] = React.useState("expenseAmountSgd");
-
-  const handleChange = (event) => {
-    if (event.target.value === "SGD") {
-      setValue("expenseAmountSgd");
-    } else {
-      setValue("expenseAmountOverseas");
-    }
-  };
-
-  if (typeof expenseDetails.tripName != "undefined") {
-    return (
-      <>
-        <TextField
-          label="Amount"
-          name={value}
-          fullWidth
-          onChange={handleInputChange}
-        />
-        <FormControl>
-          <FormLabel>Currency</FormLabel>
-          <RadioGroup onChange={handleChange}>
-            <FormControlLabel value="SGD" control={<Radio />} label="SGD" />
-            <FormControlLabel
-              value="Overseas"
-              control={<Radio />}
-              label="Overseas"
-            />
-          </RadioGroup>
-        </FormControl>
-      </>
-    );
-  } else {
-    return (
-      <TextField
-        label="Amount (SGD)"
-        name="expenseAmountSgd"
-        fullWidth
-        defaultValue={expenseDetails.expenseAmountSgd}
-        onChange={handleInputChange}
-      />
-    );
-  }
-}
 export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
   const { reRender } = useContext(MyContext);
 
@@ -81,6 +33,14 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
     expenseAmountOverseas: expenseDetails.expenseAmountOverseas,
     expenseAmountSgd: expenseDetails.expenseAmountSgd,
   });
+
+  const convertToNumeric = () => {
+    formData.expenseAmountSgd = parseFloat(formData.expenseAmountSgd, 2);
+    formData.expenseAmountOverseas = parseFloat(
+      formData.expenseAmountOverseas,
+      2
+    );
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -103,7 +63,23 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
   };
 
   const handleUpdate = async () => {
-    const res = await api
+    convertToNumeric();
+
+    if (typeof expenseDetails.tripName != "undefined") {
+      if (
+        expenseDetails.expenseAmountOverseas !== formData.expenseAmountOverseas
+      ) {
+        const value =
+          formData.expenseAmountOverseas / expenseDetails.exchangeRate;
+        formData.expenseAmountSgd = value;
+      } else if (
+        expenseDetails.expenseAmountSgd !== formData.expenseAmountSgd
+      ) {
+        const value = formData.expenseAmountSgd * expenseDetails.exchangeRate;
+        formData.expenseAmountOverseas = value;
+      }
+    }
+    await api
       .post(`expenses/${expenseDetails._id}`, formData)
       .then((x) => x.data);
     handleClose();
@@ -156,7 +132,7 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
                 />
               </DemoContainer>
             </LocalizationProvider>
-            <ExpenseAmount
+            <ExpenseDialogAmountField
               expenseDetails={expenseDetails}
               handleInputChange={handleInputChange}
             />

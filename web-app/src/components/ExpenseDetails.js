@@ -20,7 +20,7 @@ function ExpenseAmount({ expenseAmountOverseas, expenseAmountSgd }) {
     return (
       <Stack alignitems="flex-end">
         <Typography>$ {expenseAmountOverseas}</Typography>
-        <Typography variant="subtitle2">= SGD {expenseAmountSgd}</Typography>
+        <Typography variant="subtitle2">= SGD {expenseAmountSgd.toFixed(2)}</Typography>
       </Stack>
     );
   }

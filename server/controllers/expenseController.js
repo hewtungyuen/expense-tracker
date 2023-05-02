@@ -121,12 +121,16 @@ const getTripTotal = async (req, res) => {
     switch (category) {
       case "Food":
         categoryTotals.foodAmount += amountSgd;
+        break;
       case "Transport":
         categoryTotals.transportAmount += amountSgd;
+        break;
       case "Leisure":
         categoryTotals.leisureAmount += amountSgd;
+        break;
       case "Shopping":
         categoryTotals.shoppingAmount += amountSgd;
+        break;
     }
   });
 
