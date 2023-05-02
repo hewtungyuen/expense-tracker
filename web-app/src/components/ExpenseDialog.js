@@ -10,6 +10,10 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormLabel,
 } from "@mui/material";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -21,6 +25,51 @@ import api from "../utils/axiosConfig";
 import MyContext from "../utils/reactContext";
 import ConfirmationDialog from "./ConfirmationDialog";
 
+function ExpenseAmount({ expenseDetails, handleInputChange }) {
+  const [value, setValue] = React.useState("expenseAmountSgd");
+
+  const handleChange = (event) => {
+    if (event.target.value === "SGD") {
+      setValue("expenseAmountSgd");
+    } else {
+      setValue("expenseAmountOverseas");
+    }
+  };
+
+  if (typeof expenseDetails.tripName != "undefined") {
+    return (
+      <>
+        <TextField
+          label="Amount"
+          name={value}
+          fullWidth
+          onChange={handleInputChange}
+        />
+        <FormControl>
+          <FormLabel>Currency</FormLabel>
+          <RadioGroup onChange={handleChange}>
+            <FormControlLabel value="SGD" control={<Radio />} label="SGD" />
+            <FormControlLabel
+              value="Overseas"
+              control={<Radio />}
+              label="Overseas"
+            />
+          </RadioGroup>
+        </FormControl>
+      </>
+    );
+  } else {
+    return (
+      <TextField
+        label="Amount (SGD)"
+        name="expenseAmountSgd"
+        fullWidth
+        defaultValue={expenseDetails.expenseAmountSgd}
+        onChange={handleInputChange}
+      />
+    );
+  }
+}
 export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
   const { reRender } = useContext(MyContext);
 
@@ -80,7 +129,6 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
               defaultValue={expenseDetails.expenseDescription}
               onChange={handleInputChange}
             />
-
             <FormControl fullWidth>
               <InputLabel>Category</InputLabel>
               <Select
@@ -95,7 +143,6 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
                 <MenuItem value={"Shopping"}>Shopping</MenuItem>
               </Select>
             </FormControl>
-
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]}>
                 <DatePicker
@@ -109,24 +156,10 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
                 />
               </DemoContainer>
             </LocalizationProvider>
-
-            <TextField
-              label="Amount (SGD)"
-              name="expenseAmountSgd"
-              fullWidth
-              defaultValue={expenseDetails.expenseAmountSgd}
-              onChange={handleInputChange}
+            <ExpenseAmount
+              expenseDetails={expenseDetails}
+              handleInputChange={handleInputChange}
             />
-
-            {expenseDetails.expenseAmountOverseas > 0 && (
-              <TextField
-                name="expenseAmountOverseas"
-                label="Amount (Overseas)"
-                fullWidth
-                defaultValue={expenseDetails.expenseAmountOverseas}
-                onChange={handleInputChange}
-              />
-            )}
           </Stack>
         </DialogContent>
 
