@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import ExpenseDetails from "../ExpenseDetails";
+import ExpenseDetails from "../components/ExpenseDetails";
 import { AddExpenseIcon } from "../utils/Icons";
 
 export default function ExpenseList({ data }) {

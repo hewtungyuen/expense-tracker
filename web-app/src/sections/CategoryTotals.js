@@ -1,4 +1,4 @@
-import CategoryTotal from "../CategoryTotal";
+import CategoryTotal from "../components/CategoryTotal";
 import { Stack, Typography, Grid } from "@mui/material";
 import {
   FoodIcon,

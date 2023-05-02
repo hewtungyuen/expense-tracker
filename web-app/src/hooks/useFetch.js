@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../axiosConfig";
+import api from "../utils/axiosConfig";
 
 const useFetch = (url, refresh = false) => {
   const [data, setData] = useState(null);

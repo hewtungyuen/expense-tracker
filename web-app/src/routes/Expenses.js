@@ -1,11 +1,11 @@
 import ExpenseTotals from "../components/ExpenseTotals";
 import { Grid, Stack } from "@mui/material";
-import CategoryTotals from "../components/sections/CategoryTotals";
-import ExpenseList from "../components/sections/ExpenseList";
+import CategoryTotals from "../sections/CategoryTotals";
+import ExpenseList from "../sections/ExpenseList";
 import useFetch from "../hooks/useFetch";
 import { useSearchParams, useParams } from "react-router-dom";
 import { useState } from "react";
-import MyContext from "../components/utils/reactContext";
+import MyContext from "../utils/reactContext";
 
 export default function Expenses() {
   const [refresh, setRefresh] = useState(false);

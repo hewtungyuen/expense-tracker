@@ -4,7 +4,7 @@ import {
   LeisureIcon,
   ShoppingIcon,
   TransportIcon,
-} from "./utils/Icons";
+} from "../utils/Icons";
 import React from "react";
 import ExpenseDialog from "./ExpenseDialog";
 

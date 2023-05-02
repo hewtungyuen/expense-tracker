@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import ExpenseCard from "../components/ExpenseCard";
 import useFetch from "../hooks/useFetch";
 import { useParams } from "react-router-dom";
@@ -18,6 +18,10 @@ export default function Home({ trips }) {
 
   if (!data) {
     return "";
+  }
+
+  if (data.length === 0) {
+    return <Typography>No expenses to display</Typography>
   }
 
   if (trips) {

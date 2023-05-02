@@ -17,8 +17,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import React, { useContext } from "react";
 import dayjs from "dayjs";
-import api from "../axiosConfig";
-import MyContext from "./utils/reactContext";
+import api from "../utils/axiosConfig";
+import MyContext from "../utils/reactContext";
 import ConfirmationDialog from "./ConfirmationDialog";
 
 export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {

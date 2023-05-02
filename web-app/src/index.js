@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import Navbar from "./components/utils/Navbar";
+import Navbar from "./components/Navbar";
 import Home from "./routes/Home";
 import Container from "@mui/material/Container";
 import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
