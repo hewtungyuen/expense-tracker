@@ -7,7 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 export function FoodIcon() {
   return (
-    <Avatar sx={{ bgcolor: "#08b681", alignSelf: "center" }} variant="rounded">
+    <Avatar sx={{ bgcolor: "#08b681", alignself: "center" }} variant="rounded">
       <FastfoodIcon fontSize="large" />
     </Avatar>
   );
@@ -15,7 +15,7 @@ export function FoodIcon() {
 
 export function LeisureIcon() {
   return (
-    <Avatar sx={{ bgcolor: "#ebbd78", alignSelf: "center" }} variant="rounded">
+    <Avatar sx={{ bgcolor: "#ebbd78", alignself: "center" }} variant="rounded">
       <SpaIcon fontSize="large" />
     </Avatar>
   );
@@ -23,15 +23,15 @@ export function LeisureIcon() {
 
 export function ShoppingIcon() {
   return (
-    <Avatar sx={{ bgcolor: "#ff9d9c", alignSelf: "center" }} variant="rounded">
-      <ShoppingBagIcon fontSize="large" alignSelf="center" />
+    <Avatar sx={{ bgcolor: "#ff9d9c", alignself: "center" }} variant="rounded">
+      <ShoppingBagIcon fontSize="large" alignself="center" />
     </Avatar>
   );
 }
 
 export function TransportIcon() {
   return (
-    <Avatar sx={{ bgcolor: "#a078ff", alignSelf: "center" }} variant="rounded">
+    <Avatar sx={{ bgcolor: "#a078ff", alignself: "center" }} variant="rounded">
       <DirectionsBusFilledIcon fontSize="large" />
     </Avatar>
   );
@@ -39,7 +39,7 @@ export function TransportIcon() {
 
 export function AddExpenseIcon() {
   return (
-    <Avatar sx={{ bgcolor: "#93c5fe", alignSelf: "center" }} variant="rounded">
+    <Avatar sx={{ bgcolor: "#93c5fe", alignself: "center" }} variant="rounded">
       <AddIcon fontSize="large" />
     </Avatar>
   );
@@ -47,7 +47,7 @@ export function AddExpenseIcon() {
 
 export function OthersIcon() {
   return (
-    <Avatar sx={{ bgcolor: "#9BA4B5", alignSelf: "center" }} variant="rounded">
+    <Avatar sx={{ bgcolor: "#9BA4B5", alignself: "center" }} variant="rounded">
       <CheckBoxOutlineBlankIcon fontSize="large" />
     </Avatar>
   );
