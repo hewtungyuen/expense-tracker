@@ -19,7 +19,7 @@ app.use("/users", userRoute);
 // starting the app
 mongoose
   .connect(process.env.ATLAS_URI, {
-    dbName: process.env.PROD_DB,
+    dbName: process.env.DB,
   })
   .then(() => {
     app.listen(process.env.PORT, () => {
