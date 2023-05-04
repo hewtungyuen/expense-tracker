@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon telegram-client.js",
+    "start": "node telegram-client.js",
+    "dev": "nodemon telegram-client.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
