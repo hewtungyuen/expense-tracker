@@ -38,4 +38,9 @@ bot.hears("Change currency", enterOverseasCurrency);
 // text handler
 bot.on("text", textHandler);
 
-bot.launch();
+bot.launch({
+  webhook: {
+    domain: process.env.WEBHOOK_URL,
+    port: 4000,
+  },
+});
