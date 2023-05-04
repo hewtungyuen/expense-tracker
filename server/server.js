@@ -16,6 +16,10 @@ const userRoute = require("./routes/userRoute");
 app.use("/expenses", expensesRoute);
 app.use("/users", userRoute);
 
+app.get("/", (req, res) => {
+  res.json("Working");
+});
+
 // starting the app
 mongoose
   .connect(process.env.ATLAS_URI, {
