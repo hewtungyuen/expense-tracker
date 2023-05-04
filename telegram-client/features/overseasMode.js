@@ -6,7 +6,7 @@ const { enterExchangeRate } = require("./currencyExchange");
 
 const setTripName = async (ctx) => {
   const telegramId = ctx.message.chat.username;
-  const newTripName = ctx.message.text;
+  const newTripName = `(${new Date().getFullYear()}) ${ctx.message.text}`;
   await api.patch(`/users/${telegramId}`, { currentState: state.START });
   await api.patch(`/users/${telegramId}`, { tripName: newTripName });
   await ctx.reply(`Trip name set to: ${newTripName}`);
