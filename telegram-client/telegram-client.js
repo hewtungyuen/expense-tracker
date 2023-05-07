@@ -1,6 +1,6 @@
 const dotenv = require("dotenv").config();
 const { Telegraf } = require("telegraf");
-
+const cron = require('node-cron');
 const { initialiseBot } = require("./features/start");
 const {
   switchToOverseasMode,
@@ -36,6 +36,10 @@ bot.hears("Change currency", enterOverseasCurrency);
 
 // text handler
 bot.on("text", textHandler);
+
+cron.schedule('*/14 * * * *', () => {
+  console.log('Keep alive');
+});
 
 if (process.env.ENV === "prod") {
   bot.launch({
