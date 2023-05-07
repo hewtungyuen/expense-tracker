@@ -8,7 +8,9 @@ const expenseSchema = new Schema({
   },
   date: {
     type: Date,
-    default: () => Date.now(),
+    default: () => {
+      Date.now() - new Date().getTimezoneOffset() * 60000;
+    },
   },
   expenseDescription: {
     type: String,
