@@ -21,7 +21,7 @@ export default function Home({ trips }) {
   }
 
   if (data.length === 0) {
-    return <Typography>No expenses to display</Typography>
+    return <Typography>No expenses to display</Typography>;
   }
 
   if (trips) {
@@ -29,7 +29,7 @@ export default function Home({ trips }) {
       <ExpenseCard
         key={d._id.tripName}
         description={d._id.tripName}
-        totalAmount={d.totalAmount}
+        totalAmount={parseFloat(d.totalAmount).toFixed(2)}
         overseas={true}
       />
     ));
@@ -38,7 +38,7 @@ export default function Home({ trips }) {
       <ExpenseCard
         key={`${d._id.month + " / " + d._id.year}`}
         description={d._id.month + " / " + d._id.year}
-        totalAmount={d.totalAmount}
+        totalAmount={parseFloat(d.totalAmount).toFixed(2)}
       />
     ));
   }
