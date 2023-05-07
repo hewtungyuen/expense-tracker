@@ -3,7 +3,6 @@ const { Telegraf } = require("telegraf");
 
 const { initialiseBot } = require("./features/start");
 const {
-  displayMonthTotal,
   switchToOverseasMode,
 } = require("./features/localMode");
 
@@ -38,9 +37,13 @@ bot.hears("Change currency", enterOverseasCurrency);
 // text handler
 bot.on("text", textHandler);
 
-bot.launch({
-  webhook: {
-    domain: process.env.WEBHOOK_URL,
-    port: 4000,
-  },
-});
+if (process.env.ENV === "prod") {
+  bot.launch({
+    webhook: {
+      domain: process.env.WEBHOOK_URL,
+      port: 4000,
+    },
+  });
+} else {
+  bot.launch();
+}
