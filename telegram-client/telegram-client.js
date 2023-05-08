@@ -41,7 +41,7 @@ cron.schedule('*/14 * * * *', () => {
   console.log('Keep alive');
 });
 
-if (process.env.ENV === "prod") {
+if (process.env.ENV === "PROD") {
   bot.launch({
     webhook: {
       domain: process.env.WEBHOOK_URL,

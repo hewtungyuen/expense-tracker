@@ -1,7 +1,15 @@
 import axios from "axios";
 
+var endpoint;
+
+if (process.env.REACT_APP_ENV === "DEV") {
+  endpoint = process.env.REACT_APP_ENDPOINT_DEV;
+} else {
+  endpoint = process.env.REACT_APP_ENDPOINT_PROD;
+}
+
 const api = axios.create({
-  baseURL: process.env.REACT_APP_ENDPOINT, 
+  baseURL: endpoint,
 });
-console.log(process.env.ENDPOINT);
+
 export default api;
