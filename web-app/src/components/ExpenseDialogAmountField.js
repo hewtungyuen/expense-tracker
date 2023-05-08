@@ -10,11 +10,16 @@ import React from "react";
 export default function ExpenseDialogAmountField({
   expenseDetails,
   handleInputChange,
+  setFormData,
 }) {
   const [selectedValue, setSelectedValue] = React.useState("expenseAmountSgd");
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      expenseType: event.target.value,
+    }));
   };
 
   if (typeof expenseDetails.tripName != "undefined") {

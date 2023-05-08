@@ -2,8 +2,6 @@ import {
   Button,
   Dialog,
   DialogActions,
-  DialogContent,
-  DialogContentText,
   DialogTitle,
 } from "@mui/material";
 import { useState } from "react";

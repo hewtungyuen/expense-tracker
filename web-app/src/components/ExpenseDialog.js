@@ -32,6 +32,7 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
     tripName: expenseDetails.tripName,
     expenseAmountOverseas: expenseDetails.expenseAmountOverseas,
     expenseAmountSgd: expenseDetails.expenseAmountSgd,
+    expenseType: "expenseAmountSgd",
   });
 
   const convertToNumeric = () => {
@@ -64,20 +65,13 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
 
   const handleUpdate = async () => {
     convertToNumeric();
-
-    if (typeof expenseDetails.tripName != "undefined") {
-      if (
-        expenseDetails.expenseAmountOverseas !== formData.expenseAmountOverseas
-      ) {
-        const value =
-          formData.expenseAmountOverseas / expenseDetails.exchangeRate;
-        formData.expenseAmountSgd = value;
-      } else if (
-        expenseDetails.expenseAmountSgd !== formData.expenseAmountSgd
-      ) {
-        const value = formData.expenseAmountSgd * expenseDetails.exchangeRate;
-        formData.expenseAmountOverseas = value;
-      }
+    console.log(formData);
+    if (formData.expenseType === "expenseAmountOverseas") {
+      const value =
+        formData.expenseAmountOverseas / expenseDetails.exchangeRate;
+      formData.expenseAmountSgd = value;
+    } else if (formData.expenseType === "expenseAmountSgd") {
+      formData.expenseAmountOverseas = null;
     }
     await api
       .post(`expenses/${expenseDetails._id}`, formData)
@@ -136,6 +130,7 @@ export default function ExpenseDialog({ open, closeDialog, expenseDetails }) {
             <ExpenseDialogAmountField
               expenseDetails={expenseDetails}
               handleInputChange={handleInputChange}
+              setFormData={setFormData}
             />
           </Stack>
         </DialogContent>

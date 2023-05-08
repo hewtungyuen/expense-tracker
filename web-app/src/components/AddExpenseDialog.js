@@ -23,7 +23,7 @@ import React, { useContext } from "react";
 import api from "../utils/axiosConfig";
 import MyContext from "../utils/reactContext";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 const AmountField = ({ overseas, register }) => {
   const [selectedValue, setSelectedValue] = React.useState("expenseAmountSgd");
@@ -53,6 +53,12 @@ const AmountField = ({ overseas, register }) => {
           inputProps={{ inputMode: "numeric" }}
           {...register(selectedValue)}
         />
+        <TextField
+          label="Exchange rate"
+          fullWidth
+          inputProps={{ inputMode: "numeric" }}
+          {...register("exchangeRate")}
+        />
       </>
     );
   } else {
@@ -71,13 +77,16 @@ export default function AddExpenseDialog({ open, closeDialog, overseas }) {
   const { register, handleSubmit, setValue } = useForm();
   const routeParams = useParams();
   const telegramId = routeParams.telegramId;
+  const [searchParams] = useSearchParams();
 
   const onSubmit = async (data) => {
-    console.log(data);
     data.telegramId = telegramId;
     data.expenseAmountSgd = parseFloat(data.expenseAmountSgd, 2);
     data.expenseAmountOverseas = parseFloat(data.expenseAmountOverseas, 2);
     data.date = data.date.add(1, "day");
+    if (overseas === "true") {
+      data.tripName = searchParams.get("tripName");
+    }
     await api.post("/expenses", data);
     reRender();
     closeDialog();
