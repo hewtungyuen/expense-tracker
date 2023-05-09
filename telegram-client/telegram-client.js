@@ -35,10 +35,6 @@ bot.hears("Change currency", enterOverseasCurrency);
 // text handler
 bot.on("text", textHandler);
 
-cron.schedule("*/10 * * * *", () => {
-  console.log("Keep alive");
-});
-
 if (process.env.ENV === "PROD") {
   bot.launch({
     webhook: {
