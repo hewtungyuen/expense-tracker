@@ -9,12 +9,8 @@ const expenseSchema = new Schema({
   date: {
     type: Date,
     default: () => {
-      var now = new Date();
-      var singaporeTime = now.toLocaleString("en-SG", {
-        timeZone: "Asia/Singapore",
-      });
-      var singaporeDate = new Date(singaporeTime);
-      return singaporeDate;
+      const currentDate = new Date()
+      return new Date().setHours(currentDate.getHours() + 8)
     },
   },
   expenseDescription: {
