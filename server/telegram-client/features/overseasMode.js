@@ -17,6 +17,7 @@ const displayTripTotal = async (ctx) => {
   const telegramId = ctx.message.chat.username;
 
   await api.patch(`/users/${telegramId}`, { currentState: state.START });
+  await api.patch(`/users/${telegramId}`, { overseasMode: true });
 
   const tripName = await api
     .get(`/users/${telegramId}/tripName`)

@@ -1,9 +1,15 @@
 const api = require("../axiosConfig");
 const state = require("../states/stateEnum");
+const { Markup } = require("telegraf");
 
 const enterExchangeRate = async (ctx) => {
   const telegramId = ctx.message.chat.username;
-  ctx.reply("Enter exchange rate: ");
+  ctx.reply(
+    "Enter exchange rate: ",
+    Markup.keyboard([["Cancel"]])
+      .oneTime()
+      .resize()
+  );
   await api.patch(`/users/${telegramId}`, {
     currentState: state.ENTER_EXCHANGE_RATE,
   });
@@ -19,7 +25,12 @@ const setExchangeRate = async (ctx) => {
 
 const enterOverseasCurrency = async (ctx) => {
   const telegramId = ctx.message.chat.username;
-  ctx.reply("Enter amount in overseas currency: ");
+  ctx.reply(
+    "Enter amount in overseas currency: ",
+    Markup.keyboard([["Cancel"]])
+      .oneTime()
+      .resize()
+  );
   await api.patch(`/users/${telegramId}`, {
     currentState: state.VIEW_CURRENCY_EXCHANGE,
   });

@@ -14,7 +14,7 @@ const addNewExpense = async (ctx) => {
     });
     ctx.reply(
       "What currency do you want to use?",
-      Markup.keyboard([["SGD", "Overseas currency"]])
+      Markup.keyboard([["SGD", "Overseas currency"], ["Cancel"]])
         .oneTime()
         .resize()
     );
@@ -22,7 +22,12 @@ const addNewExpense = async (ctx) => {
     await api.patch(`/users/${telegramId}`, {
       currentState: state.ENTER_AMOUNT_SGD,
     });
-    ctx.reply("Enter amount: ");
+    ctx.reply(
+      "Enter amount: ",
+      Markup.keyboard([["Cancel"]])
+        .oneTime()
+        .resize()
+    );
   }
 };
 
@@ -39,7 +44,12 @@ const addNewExpenseOverseasMode = async (ctx) => {
       currentState: state.ENTER_AMOUNT_SGD,
     });
   }
-  ctx.reply("Enter amount: ");
+  ctx.reply(
+    "Enter amount: ",
+    Markup.keyboard([["Cancel"]])
+      .oneTime()
+      .resize()
+  );
 };
 
 const enterAmount = async (ctx) => {
@@ -61,7 +71,12 @@ const enterAmount = async (ctx) => {
     currentState: state.ENTER_DESCRIPTION,
   });
 
-  ctx.reply("Enter description: ");
+  ctx.reply(
+    "Enter description: ",
+    Markup.keyboard([["Cancel"]])
+      .oneTime()
+      .resize()
+  );
 };
 
 const enterAmountOverseas = async (ctx) => {
@@ -71,7 +86,12 @@ const enterAmountOverseas = async (ctx) => {
   await api.patch(`/users/${telegramId}`, {
     currentState: state.ENTER_DESCRIPTION,
   });
-  ctx.reply("Enter description: ");
+  ctx.reply(
+    "Enter description: ",
+    Markup.keyboard([["Cancel"]])
+      .oneTime()
+      .resize()
+  );
 };
 
 const enterDescription = async (ctx) => {
@@ -86,7 +106,7 @@ const enterDescription = async (ctx) => {
     Markup.keyboard([
       ["Food", "Leisure"],
       ["Shopping", "Transport"],
-      ["Others"],
+      ["Others", "Cancel"],
     ])
       .oneTime()
       .resize()

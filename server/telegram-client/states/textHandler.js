@@ -29,6 +29,10 @@ const textHandler = async (ctx) => {
   const telegramId = ctx.message.chat.username;
   const currentState = await api.get(`/users/${telegramId}/currentState`);
   const userInput = ctx.message.text;
+  if (userInput === "Cancel") {
+    initialiseBot(ctx);
+    return;
+  }
   console.log("current state: " + currentState.data);
 
   switch (currentState.data) {

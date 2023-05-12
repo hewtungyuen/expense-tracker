@@ -20,7 +20,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // commands
 bot.command("/start", initialiseBot);
-bot.command("/cancel", initialiseBot);
+bot.hears("Cancel", initialiseBot);
 
 // local mode
 bot.hears("Add expense", addNewExpense);

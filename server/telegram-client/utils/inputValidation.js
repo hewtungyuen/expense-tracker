@@ -1,6 +1,9 @@
 const numberValidationDecorator = (func) => {
   const inner = (ctx) => {
     const userInput = ctx.message.text;
+    if (userInput === "Cancel") {
+      func(ctx);
+    }
     const num = +userInput;
 
     if (num) {
